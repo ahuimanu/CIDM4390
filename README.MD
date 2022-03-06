@@ -1,5 +1,7 @@
 # CIDM 4390
 
+IMPORTANT NOTE!  This repository uses a branching strategy to reflect the current semester of use.
+
 ## Spring 2022
 There is a [Git and Github](GITHUB.MD) Markdown document that is worth reviewing.
 
