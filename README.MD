@@ -1,6 +1,9 @@
 # CIDM 4390
 
-A few examples of some software engineering concepts.
+## Spring 2022
+There is a [Git and Github](GITHUB.MD) Markdown document that is worth reviewing.
+
+The files here contain a few examples of some of the software engineering concepts introduced in CIDM4390.
 
 ## Outdated Nuget Packages
 
