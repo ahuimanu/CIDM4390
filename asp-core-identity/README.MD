@@ -1,5 +1,7 @@
 # Demonstrating ASP.NET Core
 
+NOTE: Refactored for DOTNET 6.0 - Spring 2022
+
 This is a walkthrough using the [Introduction to ASP.NET Core Identity](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/identity?view=aspnetcore-5.0&tabs=netcore-cli) Tutorial.
 
 This was written in Markdown, if you don't know what that is, look [here](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet).
