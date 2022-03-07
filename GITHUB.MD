@@ -277,6 +277,10 @@ Somebody on the team, perhaps the Scrum Master, acts as the "Integration Manager
 * The maintainer adds the contributor’s repository as a remote and merges locally.
 * The maintainer pushes merged changes to the main repository.
 
+*Integration-Manager Workflow*
+
+![Integration-Manager Workflow](https://git-scm.com/book/en/v2/images/integration-manager.png)
+
 ## Adopting the Benevolent Dictator Workflow
 
 This is a variant of a multiple-repository Integration-Manager Workflow. A "lieutenant" integration managers is in charge of certain parts of the repository. Above his, all the lieutenants have one integration manager known as the benevolent dictator. The benevolent dictator pushes from their directory to a reference repository from which all the collaborators need to pull.  The control aspects of this may even be attractive for a small team where the "lieutenant" role is skipped and only the benevolent dictator remains."
