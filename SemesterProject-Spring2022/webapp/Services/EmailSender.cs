@@ -22,10 +22,24 @@ public class EmailSender : IEmailSender
 
     public async Task SendEmailAsync(string toEmail, string subject, string message)
     {
-        if (string.IsNullOrEmpty(Options.SendGridKey))
+        if (string.IsNullOrEmpty(Options.SENDGRID_API_KEY))
         {
             throw new Exception("Null SendGridKey");
         }
-        await SenderAdapter.SendEmailAsync(Options.SendGridKey, subject, message, toEmail);
+        _logger.LogInformation("SENDGRID_API_KEY OK");
+
+        if (string.IsNullOrEmpty(Options.EMAIL_FROM_ADDRESS))
+        {
+            throw new Exception("Null SendGridKey");
+        }        
+        _logger.LogInformation("EMAIL_FROM_ADDRESS OK");
+
+        // this calls our seperate service
+        await SenderAdapter.SendEmailAsync(
+            Options.SENDGRID_API_KEY, 
+            subject, 
+            message, 
+            toEmail, 
+            Options.EMAIL_FROM_ADDRESS);
     }
 }
