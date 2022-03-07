@@ -1,5 +1,7 @@
 # SendGrid Console Test
 
+This project was created as a part of the [Debugging Process recommended by Microsoft](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/accconfirm?view=aspnetcore-6.0&tabs=netcore-cli#debug-email) in the use of SendGrid as an Email provider for your use of ASP.NET Identity Core.
+
 This is a quick test to see if SendGrid works. [Documentation from Twillio/SendGrid](https://github.com/sendgrid/sendgrid-csharp).
 
 SendGrid provides this code example: [v3 API C# Code Example](https://docs.sendgrid.com/for-developers/sending-email/v3-csharp-code-example).
