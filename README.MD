@@ -7,7 +7,7 @@ IMPORTANT NOTE!  This repository uses a branching strategy to reflect the curren
 * *asp-code-identity* - a separate project that implements ASP.NET Core Identity according to the [Documentation - Introduction to Identity on ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/identity?view=aspnetcore-6.0&tabs=netcore-cli)
     * *Special Note:* You will want to ensure you also implement [Account confirmation and password recovery in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/accconfirm?view=aspnetcore-6.0&tabs=netcore-cli)
 * *SemesterProject-Spring2021* - A rebuild of the *Testing* project to target [ASP.NET 6.0](https://docs.microsoft.com/en-us/aspnet/core/?view=aspnetcore-6.0)
-* *sendgrid-test* - A console app that uses the SendGrid API as well as `dotnet user-secrets`
+* *sendgrid-test* - A console app that uses the [SendGrid API](https://github.com/sendgrid/sendgrid-csharp) as well as `dotnet user-secrets`
 * *Testing* - A project Implemented in ASP.NET 5.0 that provides a full example architecture that focuses on weather data from NOAA. This is provided as an example project architecture.  This is being re-written for ASP.NET 6.0.
 
 ## Git and Github Documentation
