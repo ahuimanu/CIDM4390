@@ -9,6 +9,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "services", "services", "{37
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "emaillib", "services\emaillib\emaillib.csproj", "{93D5AD55-EA68-4B15-B509-3D1C7D726043}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "noaalib", "services\noaalib\noaalib.csproj", "{7461A7BB-C400-4E73-B45C-DC6BEF2C4E2D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tests", "tests\tests.csproj", "{40664DE5-D15B-44EF-8393-28A01730E48D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,8 +30,17 @@ Global
 		{93D5AD55-EA68-4B15-B509-3D1C7D726043}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{93D5AD55-EA68-4B15-B509-3D1C7D726043}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{93D5AD55-EA68-4B15-B509-3D1C7D726043}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7461A7BB-C400-4E73-B45C-DC6BEF2C4E2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7461A7BB-C400-4E73-B45C-DC6BEF2C4E2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7461A7BB-C400-4E73-B45C-DC6BEF2C4E2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7461A7BB-C400-4E73-B45C-DC6BEF2C4E2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40664DE5-D15B-44EF-8393-28A01730E48D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40664DE5-D15B-44EF-8393-28A01730E48D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40664DE5-D15B-44EF-8393-28A01730E48D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40664DE5-D15B-44EF-8393-28A01730E48D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{93D5AD55-EA68-4B15-B509-3D1C7D726043} = {376D1755-2FD7-4A1F-BECE-A0B240B187AC}
+		{7461A7BB-C400-4E73-B45C-DC6BEF2C4E2D} = {376D1755-2FD7-4A1F-BECE-A0B240B187AC}
 	EndGlobalSection
 EndGlobal
