@@ -25,8 +25,8 @@ public enum StationType
 public class Station
 {
     [Key]
-    public string StationId { get; set; }
-    public string WmoId { get; set; }
+    public string? StationId { get; set; }
+    public string? WmoId { get; set; }
     public float Latitude { get; set; }
     public float Longitude { get; set; }
     public float ElevationInMeters { get; set; }
