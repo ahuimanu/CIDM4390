@@ -1,4 +1,6 @@
-﻿namespace noaalib;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace noaalib;
 
 /// <summary>
 /// https://aviationweather.gov/dataserver/fields?datatype=station
@@ -22,6 +24,7 @@ public enum StationType
 /// </summary>
 public class Station
 {
+    [Key]
     public string StationId { get; set; }
     public string WmoId { get; set; }
     public float Latitude { get; set; }
