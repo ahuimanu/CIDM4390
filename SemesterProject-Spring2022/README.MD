@@ -126,3 +126,16 @@ The `services\noaalib` project contains several testable components that are dem
     1. Test methods annotated with `[Fact]`: Facts are tests which are always true. They test invariant conditions.
     1. Test methods annotated with `[Theory]`: Theories are tests which are only true for a particular set of data.
         1. Theories use the `[InlineData()]` annotation to specify test data
+1. Running tests uding the [dotnet test](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-test) command.
+    .1 [Running Selective Tests](https://docs.microsoft.com/en-us/dotnet/core/testing/selective-unit-tests?pivots=mstest)
+1. [Sharing Resources Accross Tests](https://xunit.net/docs/shared-context) - so you don't have to recreate the same object repeatedly within the tests themselves.
+1. [The .NET Core Test Explorer](https://marketplace.visualstudio.com/items?itemName=formulahendry.dotnet-test-explorer) provides a nicer GUI experience for running tests in VS Code.
+
+### Notable C#/.NET Capabilities Demonstrated
+1. Q:"How can I download data from the Internet/Web?": 
+    1. A: [HttpClient](https://docs.microsoft.com/en-us/dotnet/api/system.net.http.httpclient?view=net-6.0)
+1. Q: "How can XML data from the web?":
+    1. A: [https://docs.microsoft.com/en-us/troubleshoot/developer/visualstudio/csharp/general/read-xml-data-from-url](How to read XML data from a URL)
+1. Q: "How can I create a valid URL from variables?"
+    1. A: [Uri](https://docs.microsoft.com/en-us/dotnet/api/system.uri?view=net-6.0) and [UriBuilder](https://docs.microsoft.com/en-us/dotnet/api/system.uribuilder.query?view=net-6.0#system-uribuilder-query)
+    1. A: [QueryHelper](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.webutilities.queryhelpers?view=aspnetcore-5.0) - An [article](https://rehansaeed.com/asp-net-core-hidden-gem-queryhelpers/) demonstrating the use of QueryHelper
