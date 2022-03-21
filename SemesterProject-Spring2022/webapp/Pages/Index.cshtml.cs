@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
+using noaalib;
+
 namespace webapp.Pages;
 
 public class IndexModel : PageModel
@@ -14,6 +16,6 @@ public class IndexModel : PageModel
 
     public void OnGet()
     {
-
+        NOAAADDSStationHelper helper = new NOAAADDSStationHelper();
     }
 }

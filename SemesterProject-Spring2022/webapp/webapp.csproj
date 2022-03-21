@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\services\emaillib\emaillib.csproj" />
+    <ProjectReference Include="..\services\noaalib\noaalib.csproj" />
   </ItemGroup>
 
 </Project>

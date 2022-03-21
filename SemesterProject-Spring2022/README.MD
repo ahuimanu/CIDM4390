@@ -31,7 +31,7 @@ This project synthesizes the design and technical aspects of your project initia
 1. Add razor pages web app to solution: `dotnet sln add ./webapp/webapp.csproj`
 1. Consider using [DB Browser for SQLite](https://sqlitebrowser.org/) to verify transactions.
 
-# Adding Identity Services Configuraiton
+## Adding Identity Services Configuraiton
 
 Some of these options are deemed commonly useful in [the tutorial](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/identity?view=aspnetcore-6.0&tabs=netcore-cli#configure-identity-services):
 
@@ -68,13 +68,13 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.SlidingExpiration = true;
 });
 ```
-# Scaffold Register, Login, LogOut, and RegisterConfirmation
+## Scaffold Register, Login, LogOut, and RegisterConfirmation
 
 1. Obtain and register scaffolding tools: `dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design`
 1. When using SQLite, append `--useSqLite` or `-sqlite`: `dotnet aspnet-codegenerator identity -dc webapp.Data.ApplicationDbContext --files "Account.Register;Account.Login;Account.Logout;Account.RegisterConfirmation" --useSqLite`
     1. CRITICAL NOTE: With the default templates, the user is redirected to the `Account.RegisterConfirmation` where they can select a link to have the account confirmed. The default `Account.RegisterConfirmation` is used only for testing, automatic account verification should be disabled in a production app
 
-# Account confirmation and password recovery in ASP.NET Core
+## Account confirmation and password recovery in ASP.NET Core
 
 The following steps assume that you will use SendGrid to send authentication emails. This is from the [Configure an email provider](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/accconfirm?view=aspnetcore-6.0&tabs=netcore-cli#configure-an-email-provider) portion of Microsoft's tutorial.  Although you do need to sign up with sendgrid, [you do not have to pay](https://sendgrid.com/free/).  Further, there are many services you can tap into, for free or with free credits, when you sign up for the FREE [GitHub Student Developer Pack](https://education.github.com/pack).
 
@@ -111,3 +111,18 @@ builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
 ```
 1. The tutorial suggests that SendGrid will required that you create a Sender Persona and this is absolutely correct. [Adding a Sender at SendGrid](https://docs.sendgrid.com/ui/sending-email/senders).
+
+# Acme Airline Scheduling Examples
+
+I will be using some of the libraries necessary to demonstrate aspects of testing and architecture from this case.
+
+## Testing and Libraries
+
+The `services\noaalib` project contains several testable components that are demonstrated here.
+
+### Notable aspects of using xUnit.
+
+1. Most of our [xUnit tests](https://xunit.net/docs/getting-started/netcore/cmdline) will work with these types of tests:
+    1. Test methods annotated with `[Fact]`: Facts are tests which are always true. They test invariant conditions.
+    1. Test methods annotated with `[Theory]`: Theories are tests which are only true for a particular set of data.
+        1. Theories use the `[InlineData()]` annotation to specify test data
