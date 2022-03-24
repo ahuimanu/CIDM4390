@@ -62,5 +62,6 @@ public class UnitTestNOAALib : IClassFixture<NOAAHelperFixture>
 
         // Assert
         Assert.True(xml.Length > 0);
+        Assert.True(xml.Length > 10);
     }
 }

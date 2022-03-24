@@ -25,6 +25,9 @@ public class NOAAADDSStationHelper : StationHelper
 
     public override Station GetStationFromStationId(string stationId)
     {
+        // 1. Create proper URL
+        // 2. get XML from NOAA
+        // 3. Parse XML to create Station Object
         return new Station();
     }
 
