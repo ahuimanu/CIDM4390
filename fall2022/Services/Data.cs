@@ -16,8 +16,8 @@ record class METARReport
 
 class ApiDb : DbContext
 {
-    public TodoDb(DbContextOptions<TodoDb> options)
+    public ApiDb(DbContextOptions<ApiDb> options)
         : base(options) { }
 
-    public DbSet<Todo> Todos => Set<Todo>();
+    public DbSet<Airport> Airports => Set<Airport>();
 }
