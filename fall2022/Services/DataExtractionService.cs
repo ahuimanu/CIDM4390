@@ -1,4 +1,4 @@
-namespace Services.Data;
+namespace Services.DataExtractionService;
 
 using HtmlAgilityPack;
 
@@ -6,8 +6,6 @@ public record AirportEntry {
     public string? ICAO {get; init;}
     public string? Name {get; init;}
 }
-
-
 
 public class WikipediaAirportScraper
 {
@@ -72,7 +70,12 @@ public class WikipediaAirportScraper
 
         // KSJT	San Angelo Regional Airport (Mathis Field)    
         new AirportEntry{ ICAO="KSJT", Name="San Angelo Regional Airport (Mathis Field)"},
-    };    
-    
+    };
+
+    public static bool ValidateTexasAirportICAO (string icao)
+    {
+        AirportEntry? result = Array.Find<AirportEntry>(TexasAirports, el => el.ICAO.Equals(icao));
+        return result != null;
+    }
 
 }
