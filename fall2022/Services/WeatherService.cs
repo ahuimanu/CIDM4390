@@ -1,16 +1,18 @@
-namespace Services.MetarService;
-
+namespace Services.WeatherService;
 
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
+using System.Text.Json;
 
-public class WeatherGovAPI {
+using Services.DataService;
+
+public class WeatherDotGovAPI {
 
     static readonly string BaseUrl = @"https://api.weather.gov/";
     static readonly HttpClient client = new HttpClient();
 
-    static WeatherGovAPI(){
+    static WeatherDotGovAPI(){
         //make sure we accept JSON+LD
         client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/ld+json"));
     }
@@ -27,5 +29,10 @@ public class WeatherGovAPI {
             Console.WriteLine(exp.Message);
         }
         return responseBody;
+    }
+
+    public WeatherStationObservation ParseWeatherStationObservationFromString(string data)
+    {
+        return new WeatherStationObservation();
     }
 }
