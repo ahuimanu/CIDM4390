@@ -2,9 +2,13 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
+    Random rand = new Random();
+    int first = rand.Next(100);
+    int second = rand.Next(100);
+    string output = $"The number is: {new MathLibrary().TheAdder(first, second)}";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <p>Hello, @first plus @second equals @output</p>
+
 </div>
