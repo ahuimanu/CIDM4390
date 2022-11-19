@@ -11,7 +11,37 @@ class ApiDb : DbContext
     public DbSet<Airport> Airports => Set<Airport>();
 }
 
-record class Airport
+public enum WeatherJobActionType {
+    CHECK_TEMPERATURE_QUALITY,
+    CHECK_WIND_QUALITY,
+}
+
+public enum JobReconciliationAction {
+    WRITE_TO_DB,
+    WRITE_TO_LOG,
+    WRITE_TO_EMAIL,
+}
+
+public record WeatherReportJobResult
+{
+    public int JobNumber; //job's id
+    public WeatherStationObservation? Observation {get; set;}
+    public bool Status {get; set;}
+}
+
+public record WeatherReportJob 
+{
+    public string? Description {get; set;}
+    public WeatherJobActionType JobType {get; set;} 
+    public JobReconciliationAction ReconciliationResult {get; set;}
+
+
+    //expressed in minutes
+    public long JobFrequencyInMinutes {get; set;}
+
+}
+
+public record Airport
 {
     public int Id { get; set; }
     public string? Name { get; set; }
@@ -286,4 +316,3 @@ public class Base
     public string? UnitCode { get; set; }
     public object? Value { get; set; }
 }
-
