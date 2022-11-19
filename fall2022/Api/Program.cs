@@ -32,10 +32,11 @@ app.MapGet("/", () => @"This is the Example API");
 // GET /obs/{station}
 // app.MapGet("/obs/{id}", (string id) => $"Dude, this is your airport {id}");
 app.MapGet(
-    "/obs/{id}", 
+    "/job/{id}", 
     async (string id) => {
         var output = await WeatherDotGovAPI.GetLastestObservationForStationAsync(id);
         WeatherStationObservation? obs = WeatherDotGovAPI.DeserializeWeatherStationObservationFromJSON(output);
+        // write to db here (call wep service to write to db)
         Console.WriteLine($"Returned value: {obs?.RawMessage}");
         return obs?.RawMessage;
     }
