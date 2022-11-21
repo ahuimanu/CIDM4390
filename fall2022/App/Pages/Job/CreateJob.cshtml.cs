@@ -21,7 +21,6 @@ namespace web.Pages.Job
 
         public string? JSONOutput {get; set;}
 
-
         public async Task OnGetAsync()
         {
             // https://www.c-sharpcorner.com/article/calling-web-api-using-httpclient/
@@ -69,6 +68,7 @@ namespace web.Pages.Job
                     }                    
                 }
 
+                //updating this variable for display in the rendered template
                 JSONOutput += $": {JsonSerializer.Serialize(Job)}";
 
             }
