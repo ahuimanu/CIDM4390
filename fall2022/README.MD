@@ -9,6 +9,8 @@ CIDM4390 - Fall 2022
 * Tests - Unit tests using xUnit
 * Worker - A background worker that handles tasks on an interval
 
+NOTE: Ignore the "Runner" project, it won't be kept.
+
 ## External APIs
 * METAR - [Weather.gov | API Web Service](https://www.weather.gov/documentation/services-web-api)
 * XPlane - [Scenery Gateway API Documentation](https://gateway.x-plane.com/api)
