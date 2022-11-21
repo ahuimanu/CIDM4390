@@ -26,7 +26,7 @@ public record WeatherReportJob
     public int ID{get; set;}
     public string? Name{get; set;}
     public string? Description {get; set;}
-    public WeatherJobActionType JobType {get; set;} 
+    public WeatherJobActionType JobActionType {get; set;} 
 
     //expressed in minutes
     public long JobFrequencyInMinutes {get; set;}
@@ -46,7 +46,7 @@ public class WeatherReportJobFactory
         return new WeatherReportJob{
             Name = name,
             Description = description,
-            JobType = jobActionType,
+            JobActionType = jobActionType,
             JobFrequencyInMinutes = jobFrequencyInMinutes,
             JobScheduledAt = jobScheduledAT,
         };
@@ -61,6 +61,16 @@ public class WeatherReportJobScheduler{
             await db.AddWeatherReportJobAsync(job);
         }
         return job;   
+    }
+
+    public async static Task<List<WeatherReportJob>> GetWeatherReportJobsAsync()
+    {
+        var jobs = new List<WeatherReportJob>();
+        using (var db = new ApiDbContext())
+        {
+            jobs = await db.GetWeatherReportJobsAsync();
+        }
+        return jobs;   
     }
 }
 

@@ -10,7 +10,7 @@
     "jobScheduledAT" : "2022-11-20T23:28:34.3160301Z" *@
 
 }
-<form>
+<form method="POST">
   <div class="form-group row">
     <label for="name" class="col-sm-2 col-form-label">Job Name</label>
     <div class="col-sm-10">
@@ -19,7 +19,6 @@
             name="name"
             type="text" 
             class="form-control" 
-            id="name" 
             placeholder="Enter job name">        
     </div>
   </div>
@@ -29,27 +28,54 @@
       <input type="text" 
             class="form-control" 
             id="description" 
+            name="description"
             placeholder="Enter job description">
     </div>           
   </div>
   <div class="form-group row">
-    <label for="jobActionType" class="col-sm-2 col-form-label">Job action type</label>
+    <label for="jobactiontype" class="col-sm-2 col-form-label">Job action type</label>
     <div class="col-sm-10">
       <input type="text" 
             class="form-control" 
-            id="jobActionType" 
+            id="jobactiontype" 
+            name="jobactiontype" 
             placeholder="Enter job action type">
     </div>
   </div>
   <div class="form-group row">
-    <label for="jobFrequencyInMinutes" class="col-sm-2 col-form-label">Job frequency in minutes</label>
+    <label for="jobfrequencyinminutes" class="col-sm-2 col-form-label">Job frequency in minutes</label>
     <div class="col-sm-10">    
       <input type="text" 
             class="form-control" 
-            id="jobFrequencyInMinutes" 
+            id="jobfrequencyinminutes" 
+            name="jobfrequencyinminutes" 
             placeholder="Enter Job frequency in minutes">
     </div>           
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
-
+<div class="container">
+  <p>
+    @Model.JSONOutput
+  </p>
+  <div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Description</th>
+        </tr>
+        @if(@Model.Jobs != null)
+        {
+          @foreach (var job in @Model.Jobs)
+          {
+            <tr>
+              <td>Name: @job.Name</td>
+              <td>Description: @job.Description</td>
+            </tr>            
+          }        
+        }
+      </thead>
+    </table>
+  </idv>
+</div>

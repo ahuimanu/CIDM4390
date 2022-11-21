@@ -59,6 +59,17 @@ public class ApiDbContext : DbContext
         }        
         return job;
     }
+
+    public async Task<List<WeatherReportJob>> GetWeatherReportJobsAsync(){
+
+        List<WeatherReportJob> jobs = new List<WeatherReportJob>();
+        using (var db = new ApiDbContext())
+        {
+            jobs = await db.WeatherReportJobs.ToListAsync<WeatherReportJob>();
+        }        
+        return jobs;
+    }
+
 }
 
 

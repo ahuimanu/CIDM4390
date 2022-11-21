@@ -29,7 +29,10 @@ var stations = new[]{
 
 // ENDPOINTS
 // GET /
-app.MapGet("/", () => @"This is the Example API");
+app.MapGet("/job/all", async () => {
+    List<WeatherReportJob> jobs = await WeatherReportJobScheduler.GetWeatherReportJobsAsync();
+    return jobs;
+});
 
 // GET /obs/{station}
 // app.MapGet("/obs/{id}", (string id) => $"Dude, this is your airport {id}");
@@ -48,7 +51,6 @@ app.MapPost(
     "/job/create",
     // do stuff here
     async (WeatherReportJob? job) => {
-        Console.WriteLine("HIT IT");
         var output = await WeatherReportJobScheduler.ScheduleWeatherReportJobAsync(job);
         return output;
     }
