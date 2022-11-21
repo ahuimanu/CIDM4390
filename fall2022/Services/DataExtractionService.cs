@@ -21,7 +21,7 @@ public class WikipediaAirportScraper
         new AirportEntry{ ICAO="KDAL", Name="Dallas Love Field"},
 
         // KAUS	Austin–Bergstrom International Airport
-        new AirportEntry{ ICAO="KAUS", Name="Austin–Bergstrom International Airport"},
+        new AirportEntry{ ICAO="KAUS", Name="Austin Bergstrom International Airport"},
 
         // KHOU	William P. Hobby Airport
         new AirportEntry{ ICAO="KHOU", Name="William P. Hobby Airport"},
@@ -51,10 +51,10 @@ public class WikipediaAirportScraper
         new AirportEntry{ ICAO="KHRL", Name="Valley International Airport"},
 
         // KGRK	Killeen–Fort Hood Regional Airport / Robert Gray Army Airfield
-        new AirportEntry{ ICAO="KGRK", Name="Killeen–Fort Hood Regional Airport / Robert Gray Army Airfield"},
+        new AirportEntry{ ICAO="KGRK", Name="Killeen Fort Hood Regional Airport / Robert Gray Army Airfield"},
 
         // KBRO	Brownsville/South Padre Island International Airport
-        new AirportEntry{ ICAO="KBRO", Name="Brownsville/South Padre Island International Airport"},
+        new AirportEntry{ ICAO="KBRO", Name="Brownsville / South Padre Island International Airport"},
 
         // KLRD	Laredo International Airport
         new AirportEntry{ ICAO="KLRD", Name="Laredo International Airport"},
@@ -72,9 +72,9 @@ public class WikipediaAirportScraper
         new AirportEntry{ ICAO="KSJT", Name="San Angelo Regional Airport (Mathis Field)"},
     };
 
-    public static bool ValidateTexasAirportICAO (string icao)
+    public static bool ValidateTexasAirportICAO (string? icao)
     {
-        AirportEntry? result = Array.Find<AirportEntry>(TexasAirports, el => el.ICAO.Equals(icao));
+        AirportEntry? result = Array.Find<AirportEntry>(TexasAirports, el => el.ICAO!.Equals(icao));
         return result != null;
     }
 

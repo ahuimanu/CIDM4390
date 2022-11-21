@@ -36,7 +36,7 @@ namespace web.Pages.Job
                 }
                 catch(Exception exp)
                 {
-                    Console.Error.WriteLine("BOOO");
+                    Console.Error.WriteLine($"Problem: {exp.Message}");
                 }
             }
         }
@@ -46,7 +46,7 @@ namespace web.Pages.Job
             if(ModelState.IsValid){
                 //do the db stuff
                 //cast the int back to the enum
-                Job.JobActionType = (WeatherJobActionType)Job.JobActionType;
+                Job!.JobActionType = (WeatherJobActionType)Job.JobActionType;
                 //timestamp now                
                 Job.JobScheduledAt = DateTime.Now;
 

@@ -20,7 +20,8 @@ WeatherReportJob? job = WeatherReportJobFactory.CreateWeatherReportJob(
 
 Console.WriteLine($"Submitting job for {job}");
 
-await WeatherReportJobScheduler.ScheduleWeatherReportJobAsync(job);
+// the "bang" here is the null forgiving operator
+await WeatherReportJobScheduler.ScheduleWeatherReportJobAsync(job!);
 
 Console.WriteLine("Job Scheduled");
 

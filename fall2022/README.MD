@@ -3,10 +3,11 @@
 CIDM4390 - Fall 2022
 
 ## Projects
-* APIs (WebAPI simple)
-* RazorPages
-* ServiceLibraries
-* Tests
+* Api (WebAPI simple) - A web service that handles requests for work (includes library calling and db work)
+* App - RazorPages front-end for client requests
+* Services - Class Libraries that determine models and business logic actions
+* Tests - Unit tests using xUnit
+* Worker - A background worker that handles tasks on an interval
 
 ## External APIs
 * METAR - [Weather.gov | API Web Service](https://www.weather.gov/documentation/services-web-api)
@@ -21,3 +22,4 @@ CIDM4390 - Fall 2022
 * [Test APIs with HttpRepl](https://learn.microsoft.com/en-us/aspnet/core/web-api/http-repl/?view=aspnetcore-6.0&tabs=windows)
 * [JSON Serialize and Deserialize](https://learn.microsoft.com/en-us/dotnet/standard/serialization/system-text-json/overview?pivots=dotnet-6-0)
 * [Background tasks with hosted services in ASP.NET Core](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services?view=aspnetcore-6.0&tabs=netcore-cli)
+* [Working with nullable reference types in C#](https://learn.microsoft.com/en-us/dotnet/csharp/nullable-references)
