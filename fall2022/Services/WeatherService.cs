@@ -10,6 +10,9 @@ using System.Text.Json.Serialization;
 // local services
 using Services.DataService;
 using Services.DataExtractionService;
+using WeatherReportService;
+
+
 
 public class WeatherDotGovAPI {
 
@@ -50,7 +53,7 @@ public class WeatherDotGovAPI {
 
     }
 
-    public static WeatherStationObservation DeserializeWeatherStationObservationFromJSON(string data)
+    public static WeatherStationObservation? DeserializeWeatherStationObservationFromJSON(string data)
     {
 
         var options = new JsonSerializerOptions(JsonSerializerDefaults.Web)

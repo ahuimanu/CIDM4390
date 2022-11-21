@@ -1,6 +1,8 @@
 // database services
 using Services.DataService;
 using Services.WeatherService;
+using Services.WeatherReportService;
+using Services.WeatherReportJobService;
 
 // SETUP
 var builder = WebApplication.CreateBuilder(args);
@@ -32,7 +34,7 @@ app.MapGet("/", () => @"This is the Example API");
 // GET /obs/{station}
 // app.MapGet("/obs/{id}", (string id) => $"Dude, this is your airport {id}");
 app.MapGet(
-    "/job/{id}", 
+    "/obs/{id}", 
     async (string id) => {
         var output = await WeatherDotGovAPI.GetLastestObservationForStationAsync(id);
         WeatherStationObservation? obs = WeatherDotGovAPI.DeserializeWeatherStationObservationFromJSON(output);
@@ -42,5 +44,18 @@ app.MapGet(
     }
 ); 
 
+app.MapPost(
+    "/job/create",
+    // do stuff here
+    async (WeatherReportJob? job) => {
+        Console.WriteLine("HIT IT");
+        var output = await WeatherReportJobScheduler.ScheduleWeatherReportJobAsync(job);
+        return output;
+    }
+);
+
+
+
 // EXECUTE
-app.Run();
+// https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis?view=aspnetcore-6.0#working-with-ports
+app.Run("https://localhost:3000");
