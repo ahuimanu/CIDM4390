@@ -2,6 +2,10 @@
 
 A few examples of some software engineering concepts.
 
+## FALL 2022
+
+The main project example is in the [fall2022](fall2022) folder.
+
 ## Outdated Nuget Packages
 
 There is a tool extension we can install that helps to find and update outdated packages that were installed using the dotnet cli.
