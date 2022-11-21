@@ -3,13 +3,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Services.DataService;
+using Services.WeatherDataService;
 
 #nullable disable
 
 namespace Services.Migrations
 {
-    [DbContext(typeof(ApiDbContext))]
+    [DbContext(typeof(WeatherDbContext))]
     [Migration("20221120215453_FirstMigration")]
     partial class FirstMigration
     {

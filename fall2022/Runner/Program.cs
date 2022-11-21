@@ -1,4 +1,4 @@
-﻿using Services.DataService;
+﻿using Services.WeatherDataService;
 using Services.WeatherService;
 using Services.WeatherReportJobService;
 
@@ -14,7 +14,7 @@ WeatherReportJob? job = WeatherReportJobFactory.CreateWeatherReportJob(
     "KAMA Temperature",
     "KAMA Tempeature Check",
     WeatherJobActionType.CHECK_TEMPERATURE_QUALITY,
-    new Random().Next(1,100),
+    new Random().Next(1, 100),
     DateTime.Now
 );
 
@@ -27,10 +27,11 @@ Console.WriteLine("Job Scheduled");
 
 Console.WriteLine("Get Jobs");
 
-using (var db = new ApiDbContext())
+using (var db = new WeatherDbContext())
 {
     var jobs = db.WeatherReportJobs.ToList<WeatherReportJob>();
-    foreach(var wjob in jobs){
+    foreach (var wjob in jobs)
+    {
         Console.WriteLine(wjob);
     }
 }

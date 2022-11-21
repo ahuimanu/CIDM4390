@@ -1,25 +1,18 @@
 namespace Services.WeatherService;
 
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Net.Http.Json;
 using System.Text.Json;
 using System.Text.Json.Nodes;
-using System.Text.Json.Serialization;
 
 // local services
-using Services.DataService;
-using Services.DataExtractionService;
 using WeatherReportService;
-
 
 
 public class WeatherDotGovAPI {
 
     static readonly string BaseUrl = @"https://api.weather.gov";
 
-    static WeatherDotGovAPI(){
-    }
+    static WeatherDotGovAPI(){}
 
     public static async Task<string> GetLastestObservationForStationAsync(string ICAOStationId)
     {
@@ -49,7 +42,7 @@ public class WeatherDotGovAPI {
             Console.WriteLine(exp.Message);
         }
 
-    return responseBody;        
+        return responseBody;        
 
     }
 
@@ -81,7 +74,6 @@ public class WeatherDotGovAPI {
         JsonNode elevationNode = obsNode!["elevation"]!;
         Dictionary<string, string> elevation = elevationNode.GetValue<Dictionary<string, string>>();
         Console.WriteLine($"Confirming node: {elevation.Keys}");
-
 
         WeatherStationObservation obs = new WeatherStationObservation();
 

@@ -16,6 +16,8 @@ public class Worker : BackgroundService
             _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
 
             // DO STUFF HERE
+            
+
             await Task.Delay(1000, stoppingToken);
         }
     }

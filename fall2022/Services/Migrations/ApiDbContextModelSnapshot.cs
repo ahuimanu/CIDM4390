@@ -3,13 +3,13 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Services.DataService;
+using Services.WeatherDataService;
 
 #nullable disable
 
 namespace Services.Migrations
 {
-    [DbContext(typeof(ApiDbContext))]
+    [DbContext(typeof(WeatherDbContext))]
     partial class ApiDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

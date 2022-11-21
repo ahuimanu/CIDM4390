@@ -41,9 +41,9 @@ app.MapPost(
     }
 );
 
-// GET /obs/{station}
+// GET /obs/{station}/raw
 app.MapGet(
-    "/obs/{id}", 
+    "/obs/{id}/raw", 
     async (string id) => {
         var output = await WeatherDotGovAPI.GetLastestObservationForStationAsync(id);
         WeatherStationObservation? obs = WeatherDotGovAPI.DeserializeWeatherStationObservationFromJSON(output);
@@ -51,7 +51,9 @@ app.MapGet(
         Console.WriteLine($"Returned value: {obs?.RawMessage}");
         return obs?.RawMessage;
     }
-); 
+);
+
+
 
 // EXECUTE
 // https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis?view=aspnetcore-6.0#working-with-ports

@@ -36,6 +36,12 @@ namespace Services.WeatherReportService;
 //     public CloudLayerOld[]? CloudLayers {get; set;}
 // }
 
+
+public class WeatherReportReconciler
+{
+    
+}
+
 /// <summary>
 /// Models the schema for a NOAA API Web Service Weather Station Observation
 /// WMO Unit Documentation: http://codes.wmo.int/common/unit
