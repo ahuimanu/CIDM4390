@@ -2,7 +2,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Services.WeatherDataService;
 
@@ -11,10 +10,9 @@ using Services.WeatherDataService;
 namespace Services.Migrations
 {
     [DbContext(typeof(WeatherDbContext))]
-    [Migration("20221121041214_WeatherJobTypeUpdate")]
-    partial class WeatherJobTypeUpdate
+    partial class WeatherDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.11");
@@ -33,7 +31,7 @@ namespace Services.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Airports");
+                    b.ToTable("Airports", (string)null);
                 });
 
             modelBuilder.Entity("Services.WeatherReportJobService.WeatherReportJob", b =>
@@ -59,7 +57,27 @@ namespace Services.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("WeatherReportJobs");
+                    b.ToTable("WeatherReportJobs", (string)null);
+                });
+
+            modelBuilder.Entity("Services.WeatherReportJobService.WeatherReportJobResult", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("JobActionType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Observation")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("WeatherReportJobResults", (string)null);
                 });
 #pragma warning restore 612, 618
         }

@@ -1,6 +1,8 @@
 namespace Services.WeatherDataService;
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
@@ -91,6 +93,37 @@ public class WeatherDbContext : DbContext
         }
         return job!;
 
+    }
+
+    public async Task<WeatherReportJob> GetDueWeatherReportJobsAsync(int id)
+    {
+
+        List<WeatherReportJob> currentJobs;
+
+        
+       
+        WeatherReportJob? job;
+        using (var db = new WeatherDbContext())
+        {
+
+            // currentJobs = await db.WeatherReportJobs
+            //                       .Where(a => CheckJobTimer(a))
+            //                       .ToList<WeatherReportJob>();
+                                  
+
+            job = await db.WeatherReportJobs
+                          .Where(r => r.ID == id)
+                          .FirstOrDefaultAsync<WeatherReportJob>();
+
+        }
+        return job!;
+
+    }
+
+    public bool CheckJobTimer(WeatherReportJob job)
+    {   
+        TimeSpan difference = DateTime.Now - job.JobScheduledAt;
+        return difference.TotalMinutes >= job.JobFrequencyInMinutes ? true : false;
     }
 
     /// <summary>

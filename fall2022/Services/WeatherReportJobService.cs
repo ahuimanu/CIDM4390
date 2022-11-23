@@ -46,10 +46,11 @@ public record WeatherReportJob
 
 public record WeatherReportJobResult
 {
+    public int ID { get; set; }
     public int JobNumber; //job's id
     public string? Observation { get; set; }
     public WeatherJobActionType JobActionType { get; set; }
-    public bool Status { get; set; }
+    public string? Status { get; set; }
 }
 
 public class WeatherReportJobFactory
@@ -84,6 +85,12 @@ public class WeatherReportJobScheduler
         return job;
     }
 
+    // public async Task<List<WeatherReportJob>> GetScheduledJobsToRun()
+    // {
+    //     List<WeatherReportJob> currentJobs = await new List<WeatherReportJob>();
+    //     return currentJobs;
+    // }
+
     public async Task DoScheduledJob(WeatherReportJob job)
     {
         switch (job.JobActionType)
@@ -97,7 +104,6 @@ public class WeatherReportJobScheduler
             default:
                 await Console.Error.WriteLineAsync("JOB TYPE INVALID");
                 break;
-
         }
     }
 
@@ -110,6 +116,10 @@ public class WeatherReportJobScheduler
         return result;
     }
 
+    /// <summary>
+    /// Gets all Weather Report Jobs
+    /// </summary>
+    /// <returns>List of Weather Report Jobs</returns>
     public async static Task<List<WeatherReportJob>> GetWeatherReportJobsAsync()
     {
         var jobs = new List<WeatherReportJob>();

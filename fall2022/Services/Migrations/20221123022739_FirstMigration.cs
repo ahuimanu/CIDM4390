@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -30,8 +31,9 @@ namespace Services.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", nullable: true),
                     Description = table.Column<string>(type: "TEXT", nullable: true),
-                    JobType = table.Column<int>(type: "INTEGER", nullable: false),
-                    JobFrequencyInMinutes = table.Column<long>(type: "INTEGER", nullable: false)
+                    JobActionType = table.Column<int>(type: "INTEGER", nullable: false),
+                    JobFrequencyInMinutes = table.Column<long>(type: "INTEGER", nullable: false),
+                    JobScheduledAt = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {

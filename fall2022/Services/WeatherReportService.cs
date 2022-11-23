@@ -1,5 +1,6 @@
 namespace Services.WeatherReportService;
 
+using WeatherReportJobService;
 
 // public record CloudLayerOld
 // {
@@ -39,7 +40,59 @@ namespace Services.WeatherReportService;
 
 public class WeatherReportReconciler
 {
-    
+
+    /// <summary>
+    /// Checks for the job action status code and applies fixed rules.
+    /// TODO: create a rules object so that rules can be adjusted.
+    /// </summary>
+    /// <param name="obs">Weather Station Observation</param>
+    /// <param name="jobActionType">Job Check Action Type</param>
+    /// <returns></returns>
+    public static string WeatherReportJobCheck(
+        WeatherStationObservation obs, 
+        WeatherJobActionType jobActionType)
+    {
+        string status = "";
+
+        switch(jobActionType)
+        {
+            case WeatherJobActionType.CHECK_TEMPERATURE_QUALITY:
+                if(obs.Temperature!.Value <= 10)
+                {
+                    status = "ICING CONDITIONS";
+                } 
+                else if(obs.Temperature!.Value >= 40)
+                {
+                    status = "CHECK DENSITY ALTITUDE";
+                }
+                else{
+                    status = "NORMAL";
+                }
+                break;
+            
+            case WeatherJobActionType.CHECK_WIND_QUALITY:
+                if(obs.WindSpeed!.Value < 0)
+                {
+                    status = "NEGATIVE WIND SPEED NOT POSSIBLE";
+                }
+                else if(obs.WindSpeed!.Value >= 35)
+                {
+                    status = "HIGH WIND CONDITIONS";
+                }
+                else if(Math.Abs(obs.WindSpeed!.Value - obs.WindGust!.Value) >= 15)
+                {
+                    status = "WIND SHEAR ALERT";
+                }
+                break;
+
+            default:
+                status = "INVALID JOB ACTION TYPE";
+                break;                
+        }
+
+        return status;
+
+    }
 }
 
 /// <summary>
@@ -185,7 +238,7 @@ public class Windspeed
 public class Windgust
 {
     public string? UnitCode { get; set; }
-    public object? Value { get; set; }
+    public float Value { get; set; }
     public string? QualityControl { get; set; }
 }
 
@@ -253,14 +306,14 @@ public class Relativehumidity
 public class Windchill
 {
     public string? UnitCode { get; set; }
-    public object? Value { get; set; }
+    public float Value { get; set; }
     public string? QualityControl { get; set; }
 }
 
 public class Heatindex
 {    
     public string? UnitCode { get; set; }
-    public object? Value { get; set; }
+    public float Value { get; set; }
     public string? QualityControl { get; set; }
 }
 
@@ -273,5 +326,5 @@ public class Cloudlayer
 public class Base
 {
     public string? UnitCode { get; set; }
-    public object? Value { get; set; }
+    public float Value { get; set; }
 }
