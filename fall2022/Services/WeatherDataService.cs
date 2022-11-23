@@ -106,6 +106,10 @@ public class WeatherDbContext : DbContext
         using (var db = new WeatherDbContext())
         {
 
+            //TODO - Create Time Delta
+            //TODO - use EntityFunctions DiffMinutes
+            //https://learn.microsoft.com/en-us/dotnet/api/system.data.objects.entityfunctions.diffminutes?view=netframework-4.8#system-data-objects-entityfunctions-diffminutes(system-nullable((system-datetime))-system-nullable((system-datetime)))
+
             // currentJobs = await db.WeatherReportJobs
             //                       .Where(a => CheckJobTimer(a))
             //                       .ToList<WeatherReportJob>();
