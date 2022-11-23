@@ -120,7 +120,7 @@ public class WeatherReportJobScheduler
         // return job;
 
         WeatherStationObservation obs =
-            await WeatherDotGovAPI.GetLastestObservationAsync(job.ICAOStationId);
+            await WeatherDotGovAPI.GetLastestObservationAsync(job.ICAOStationId!);
 
         string status = WeatherReportReconciler.WeatherReportJobCheck(obs, job.JobActionType);
 
