@@ -2,6 +2,7 @@ namespace Services.WeatherDataService;
 
 using System;
 using System.Collections.Generic;
+
 using System.Linq;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
@@ -78,7 +79,7 @@ public class WeatherDbContext : DbContext
             await db.SaveChangesAsync();
         }
         return result;
-    }    
+    }
 
     public async Task<WeatherReportJob> GetWeatherReportJobByIdAsync(int id)
     {
@@ -95,14 +96,11 @@ public class WeatherDbContext : DbContext
 
     }
 
-    public async Task<WeatherReportJob> GetDueWeatherReportJobsAsync(int id)
+    public async Task<List<WeatherReportJob>> GetWeatherReportJobsDueAsync()
     {
 
         List<WeatherReportJob> currentJobs;
 
-        
-       
-        WeatherReportJob? job;
         using (var db = new WeatherDbContext())
         {
 
@@ -110,22 +108,22 @@ public class WeatherDbContext : DbContext
             //TODO - use EntityFunctions DiffMinutes
             //https://learn.microsoft.com/en-us/dotnet/api/system.data.objects.entityfunctions.diffminutes?view=netframework-4.8#system-data-objects-entityfunctions-diffminutes(system-nullable((system-datetime))-system-nullable((system-datetime)))
 
-            // currentJobs = await db.WeatherReportJobs
-            //                       .Where(a => CheckJobTimer(a))
-            //                       .ToList<WeatherReportJob>();
-                                  
 
-            job = await db.WeatherReportJobs
-                          .Where(r => r.ID == id)
-                          .FirstOrDefaultAsync<WeatherReportJob>();
+            var allJobs = await db.WeatherReportJobs.ToListAsync<WeatherReportJob>();
+
+            // hard-coding this right now, would need to change in the future
+            // this is handled entirely in memory right now as well - not good if the number of jobs gets larger
+            // would be fixed by using a better database provider.
+            currentJobs = allJobs
+                .Where(j => (DateTime.Now.Minute - j.JobScheduledAt.Minute) > j.JobFrequencyInMinutes)
+                .ToList<WeatherReportJob>();
 
         }
-        return job!;
-
+        return currentJobs!;
     }
 
     public bool CheckJobTimer(WeatherReportJob job)
-    {   
+    {
         TimeSpan difference = DateTime.Now - job.JobScheduledAt;
         return difference.TotalMinutes >= job.JobFrequencyInMinutes ? true : false;
     }

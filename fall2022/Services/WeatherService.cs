@@ -14,6 +14,14 @@ public class WeatherDotGovAPI {
 
     static WeatherDotGovAPI(){}
 
+    public static async Task<WeatherStationObservation> GetLastestObservationAsync (string ICAOStationId)
+    {
+        var output = await WeatherDotGovAPI.GetLastestObservationForStationAsync(ICAOStationId);
+        WeatherStationObservation? obs = WeatherDotGovAPI.DeserializeWeatherStationObservationFromJSON(output);
+
+        return obs!;
+    }
+
     public static async Task<string> GetLastestObservationForStationAsync(string ICAOStationId)
     {
         string responseBody = "";

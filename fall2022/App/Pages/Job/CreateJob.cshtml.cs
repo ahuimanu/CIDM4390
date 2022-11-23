@@ -32,7 +32,7 @@ namespace web.Pages.Job
                 //GET Method
                 try
                 {
-                    Jobs = await client.GetFromJsonAsync<List<WeatherReportJob>>("job/all");
+                    Jobs = await client.GetFromJsonAsync<List<WeatherReportJob>>("jobs/all");
                 }
                 catch (Exception exp)
                 {
@@ -59,7 +59,7 @@ namespace web.Pages.Job
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                     //POST Method
-                    HttpResponseMessage response = await client.PostAsJsonAsync("job/create", Job);
+                    HttpResponseMessage response = await client.PostAsJsonAsync("jobs/create", Job);
 
                     if (response.IsSuccessStatusCode)
                     {

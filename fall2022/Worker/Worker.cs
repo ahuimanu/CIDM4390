@@ -18,7 +18,7 @@ public class Worker : BackgroundService
             // DO STUFF HERE
             
 
-            await Task.Delay(1000, stoppingToken);
+            await Task.Delay(1000 * 60, stoppingToken);
         }
     }
 }

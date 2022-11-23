@@ -26,14 +26,19 @@ var stations = new[]{""};
 
 // ENDPOINTS
 // GET /job/all
-app.MapGet("/job/all", async () => {
+app.MapGet("/jobs/all", async () => {
     List<WeatherReportJob> jobs = await WeatherReportJobScheduler.GetWeatherReportJobsAsync();
+    return jobs;
+});
+
+app.MapGet("/jobs/due", async () => {
+    List<WeatherReportJob> jobs = await WeatherReportJobScheduler.GetScheduledJobsToRunAsync();
     return jobs;
 });
 
 // POST /job/create 
 app.MapPost(
-    "/job/create",
+    "/jobs/create",
     // do stuff here
     async (WeatherReportJob? job) => {
         var output = await WeatherReportJobScheduler.ScheduleWeatherReportJobAsync(job!);
@@ -45,8 +50,8 @@ app.MapPost(
 app.MapGet(
     "/obs/{id}/raw", 
     async (string id) => {
-        var output = await WeatherDotGovAPI.GetLastestObservationForStationAsync(id);
-        WeatherStationObservation? obs = WeatherDotGovAPI.DeserializeWeatherStationObservationFromJSON(output);
+
+        WeatherStationObservation? obs = await WeatherDotGovAPI.GetLastestObservationAsync(id);
         // write to db here (call wep service to write to db)
         Console.WriteLine($"Returned value: {obs?.RawMessage}");
         return obs?.RawMessage;

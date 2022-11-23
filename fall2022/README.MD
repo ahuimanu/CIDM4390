@@ -25,3 +25,14 @@ NOTE: Ignore the "Runner" project, it won't be kept.
 * [JSON Serialize and Deserialize](https://learn.microsoft.com/en-us/dotnet/standard/serialization/system-text-json/overview?pivots=dotnet-6-0)
 * [Background tasks with hosted services in ASP.NET Core](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services?view=aspnetcore-6.0&tabs=netcore-cli)
 * [Working with nullable reference types in C#](https://learn.microsoft.com/en-us/dotnet/csharp/nullable-references)
+
+
+
+{
+    "name":"Test Job 4",
+    "description": "Test Job Description 4",
+    "icaoStationId": "KAUS",
+    "jobActionType": 1,
+    "jobFrequencyInMinutes": "5",
+    "jobScheduledAT" : "2022-11-23T21:45:37.3083145Z"
+}

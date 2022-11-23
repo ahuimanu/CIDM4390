@@ -13,6 +13,7 @@ Console.WriteLine("Checking the Job Scheduler");
 WeatherReportJob? job = WeatherReportJobFactory.CreateWeatherReportJob(
     "KAMA Temperature",
     "KAMA Tempeature Check",
+    "KAMA",
     WeatherJobActionType.CHECK_TEMPERATURE_QUALITY,
     new Random().Next(1, 100),
     DateTime.Now
