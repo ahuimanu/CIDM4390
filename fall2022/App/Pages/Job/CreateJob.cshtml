@@ -48,9 +48,9 @@
       <select class="form-control"
               id="jobactiontype" 
               name="jobactiontype" >
-        <option selected="selected" value="">Please select</option>
-        <option selected="selected" value="0">CHECK_TEMPERATURE_QUALITY</option>
-        <option selected="selected" value="1">CHECK_WIND_QUALITY</option>
+        <option value="">Please select</option>
+        <option value="0" selected>CHECK_TEMPERATURE_QUALITY</option>
+        <option value="1">CHECK_WIND_QUALITY</option>
       </select>      
       @* CHECK_TEMPERATURE_QUALITY,
          CHECK_WIND_QUALITY,
@@ -65,9 +65,11 @@
   <div class="form-group row">
     <label for="jobfrequencyinminutes" class="col-sm-2 col-form-label">Job frequency in minutes</label>
     <div class="col-sm-10">    
-      <input type="text" 
+      <input type="number" 
             class="form-control" 
-            id="jobfrequencyinminutes" 
+            id="jobfrequencyinminutes"
+            min="1"
+            max="60"
             name="jobfrequencyinminutes" 
             placeholder="Enter Job frequency in minutes">
     </div>           

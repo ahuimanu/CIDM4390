@@ -136,7 +136,7 @@ public class WeatherDbContext : DbContext
             // this is handled entirely in memory right now as well - not good if the number of jobs gets larger
             // would be fixed by using a better database provider.
             currentJobs = allJobs
-                .Where(j => (DateTime.Now.Minute - j.JobScheduledAt.Minute) > j.JobFrequencyInMinutes)
+                .Where(j => (Math.Abs(DateTime.Now.Minute - j.JobScheduledAt.Minute)) > j.JobFrequencyInMinutes)
                 .ToList<WeatherReportJob>();
 
         }

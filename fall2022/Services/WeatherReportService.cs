@@ -43,7 +43,7 @@ public class WeatherReportReconciler
                     status = "CHECK DENSITY ALTITUDE";
                 }
                 else{
-                    status = "NORMAL";
+                    status = "TEMPERATURE NORMAL";
                 }
                 break;
             
@@ -60,6 +60,9 @@ public class WeatherReportReconciler
                 {
                     status = "WIND SHEAR ALERT";
                 }
+                else{
+                    status = "WIND NORMAL";
+                }                
                 break;
 
             default:
