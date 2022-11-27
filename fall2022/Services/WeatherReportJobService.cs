@@ -4,6 +4,9 @@ using WeatherDataService;
 using WeatherReportService;
 using WeatherService;
 
+
+// just in case you didn't learn about enums: https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/enum
+
 /// <summary>
 /// Indicates the type of job check, I'll just be doing the "store raw metar."
 /// </summary>
@@ -87,14 +90,6 @@ public class WeatherReportJobFactory
 /// </summary>
 public class WeatherReportJobScheduler
 {
-    public async static Task<WeatherReportJob> ScheduleWeatherReportJobAsync(WeatherReportJob job)
-    {
-        using (var db = new WeatherDbContext())
-        {
-            await db.AddWeatherReportJobAsync(job);
-        }
-        return job;
-    }
 
     /// <summary>
     /// Called from a worker backgrund process to execute a scheduled job.
@@ -103,68 +98,25 @@ public class WeatherReportJobScheduler
     /// <returns>Completed WeatherReportJob</returns>
     public static async Task DoScheduledJobAsync(WeatherReportJob job)
     {
-        // switch (job.JobActionType)
-        // {
-        //     case WeatherJobActionType.CHECK_TEMPERATURE_QUALITY:
-        //         break;
-
-        //     case WeatherJobActionType.CHECK_WIND_QUALITY:
-        //         break;
-
-        //     default:
-        //         await Console.Error.WriteLineAsync("JOB TYPE INVALID");
-        //         break;
-        // }
-
-
-        // return job;
 
         WeatherStationObservation obs =
             await WeatherDotGovAPI.GetLastestObservationAsync(job.ICAOStationId!);
 
         string status = WeatherReportReconciler.WeatherReportJobCheck(obs, job.JobActionType);
 
-        // public int JobNumber; //job's id
-        // public string? Observation { get; set; }
-        // public WeatherJobActionType JobActionType { get; set; }
-        // public string? Status { get; set; }
+        //create the job result
         WeatherReportJobResult outcome = new WeatherReportJobResult()
         {
             JobNumber = job.ID,
             Observation = obs.RawMessage,
-
+            JobActionType = job.JobActionType,
+            Status = status
         };
 
-    }
+        //log the job result to the database
+        await WeatherReportJobScheduler.LogWeatherReportJobResultAsync(outcome);
 
-    /// <summary>
-    /// Logs results of the completed job.
-    /// </summary>
-    /// <param name="result">WeatherReportJobResult</param></param>
-    /// <returns>Completed WeatherReportJob</returns>
-    public async static Task<WeatherReportJobResult> LogWeatherReportJobResultAsync(WeatherReportJobResult result)
-    {
-        using (var db = new WeatherDbContext())
-        {
-            await db.AddWeatherReportJobResultAsync(result);
-        }
-        return result;
     }
-
-    /// <summary>
-    /// Gets all Weather Report Jobs
-    /// </summary>
-    /// <returns>List of Weather Report Jobs</returns>
-    public async static Task<List<WeatherReportJob>> GetWeatherReportJobsAsync()
-    {
-        var jobs = new List<WeatherReportJob>();
-        using (var db = new WeatherDbContext())
-        {
-            jobs = await db.GetWeatherReportJobsAsync();
-        }
-        return jobs;
-    }
-
 
     /// <summary>
     /// Get all jobs that are due to be run
@@ -179,5 +131,64 @@ public class WeatherReportJobScheduler
         }
 
         return currentJobs;
+    }    
+
+    /// <summary>
+    /// Gets all Weather Report Jobs
+    /// </summary>
+    /// <returns>List of Weather Report Jobs</returns>
+    public async static Task<List<WeatherReportJob>> GetWeatherReportJobsAsync()
+    {
+        var jobs = new List<WeatherReportJob>();
+        using (var db = new WeatherDbContext())
+        {
+            jobs = await db.GetWeatherReportJobsAsync();
+        }
+        return jobs;
+    }    
+
+    /// <summary>
+    /// Logs results of the completed job.
+    /// </summary>
+    /// <param name="result">WeatherReportJobResult</param></param>
+    /// <returns>Completed WeatherReportJob</returns>
+    public async static Task<WeatherReportJobResult> LogWeatherReportJobResultAsync(WeatherReportJobResult result)
+    {
+        using (var db = new WeatherDbContext())
+        {
+            await db.AddWeatherReportJobResultAsync(result);
+        }
+        return result;
+    }    
+
+    /// <summary>
+    /// Runs the Scheduled Jobs
+    /// </summary>
+    /// <returns>Task</returns>
+    public async static Task RunScheduledJobs()
+    {
+
+        List<WeatherReportJob> currentJobs = await GetScheduledJobsToRunAsync();
+
+        foreach(WeatherReportJob job in currentJobs)
+        {
+            await WeatherReportJobScheduler.DoScheduledJobAsync(job);
+        }
     }
+
+
+    /// <summary>
+    /// Add job to the schedule
+    /// </summary>
+    /// <param name="job"></param>
+    /// <returns>scheduled job</returns>
+    public async static Task<WeatherReportJob> ScheduleWeatherReportJobAsync(WeatherReportJob job)
+    {
+        using (var db = new WeatherDbContext())
+        {
+            await db.AddWeatherReportJobAsync(job);
+        }
+        return job;
+    }
+
 }

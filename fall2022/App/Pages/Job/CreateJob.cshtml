@@ -45,11 +45,21 @@
   <div class="form-group row">
     <label for="jobactiontype" class="col-sm-2 col-form-label">Job action type</label>
     <div class="col-sm-10">
-      <input type="text" 
-            class="form-control" 
-            id="jobactiontype" 
-            name="jobactiontype" 
-            placeholder="Enter job action type">
+      <select class="form-control"
+              id="jobactiontype" 
+              name="jobactiontype" >
+        <option selected="selected" value="">Please select</option>
+        <option selected="selected" value="0">CHECK_TEMPERATURE_QUALITY</option>
+        <option selected="selected" value="1">CHECK_WIND_QUALITY</option>
+      </select>      
+      @* CHECK_TEMPERATURE_QUALITY,
+         CHECK_WIND_QUALITY,
+
+        <input type="text" 
+          class="form-control" 
+          id="jobactiontype" 
+          name="jobactiontype" 
+          placeholder="Enter job action type"> *@
     </div>
   </div>
   <div class="form-group row">
@@ -74,6 +84,7 @@
         <tr>
           <th scope="col">Name</th>
           <th scope="col">Description</th>
+          <th scope="col">Station ID</th>
         </tr>
         @if(@Model.Jobs != null)
         {
@@ -82,6 +93,7 @@
             <tr>
               <td>Name: @job.Name</td>
               <td>Description: @job.Description</td>
+              <td>Station ID: @job.ICAOStationId</td>
             </tr>            
           }        
         }

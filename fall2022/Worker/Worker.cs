@@ -1,7 +1,12 @@
-namespace Worker;
+namespace JobWorker;
+
+using Services.WeatherReportJobService;
 
 public class Worker : BackgroundService
 {
+
+    private int executionCount = 0;
+
     private readonly ILogger<Worker> _logger;
 
     public Worker(ILogger<Worker> logger)
@@ -13,11 +18,23 @@ public class Worker : BackgroundService
     {
         while (!stoppingToken.IsCancellationRequested)
         {
-            _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
 
-            // DO STUFF HERE
+            var count = Interlocked.Increment(ref executionCount);
+
+            if(executionCount == 1)
+            {
+                _logger.LogInformation("Worker started at: {time}", DateTimeOffset.Now);            
+            } 
+            else 
+            {
+                _logger.LogInformation("Worker running job: {time} - job run #: {count}", 
+                                       DateTimeOffset.Now, count);
+            }            
+
+            // Do the job
+            await WeatherReportJobScheduler.RunScheduledJobs();            
             
-
+            // Wait a minute
             await Task.Delay(1000 * 60, stoppingToken);
         }
     }

@@ -2,42 +2,6 @@ namespace Services.WeatherReportService;
 
 using WeatherReportJobService;
 
-// public record CloudLayerOld
-// {
-//     public Dictionary<string, string>? CloudBase {get; set;}
-//     public string? Amount {get; set;}
-// }
-
-// public record WeatherStationObservationOld
-// {
-//     public string? Geometry {get; set;}
-//     public Dictionary<string, string>? Elevation {get; set;}
-//     public string? Station {get; set;}
-//     public string? Timestamp {get; set;}
-//     public string? RawMessage {get; set;}
-//     public string? TextDescription {get; set;}
-//     public string? Icon {get; set;}
-//     public string[]? PresentWeather {get; set;}
-//     public Dictionary<string, string>? Temperature {get; set;}
-//     public Dictionary<string, string>? Dewpoint {get; set;}
-//     public Dictionary<string, string>? WindDirection {get; set;}
-//     public Dictionary<string, string>? WindSpeed {get; set;}
-//     public Dictionary<string, string>? WindGust {get; set;}
-//     public Dictionary<string, string>? BarometricPressure {get; set;}
-//     public Dictionary<string, string>? SeaLevelPressure {get; set;}
-//     public Dictionary<string, string>? Visibility {get; set;}
-//     public Dictionary<string, string>? MaxTemperatureLast24Hours {get; set;}
-//     public Dictionary<string, string>? MinTemperatureLast24Hours {get; set;}
-//     public Dictionary<string, string>? PrecipitationLastHour {get; set;}
-//     public Dictionary<string, string>? PrecipitationLast3Hours {get; set;}
-//     public Dictionary<string, string>? PrecipitationLast6Hours {get; set;}
-//     public Dictionary<string, string>? RelativeHumidity {get; set;}
-//     public Dictionary<string, string>? WindChill {get; set;}
-//     public Dictionary<string, string>? HeatIndex {get; set;}
-//     public CloudLayerOld[]? CloudLayers {get; set;}
-// }
-
-
 public class WeatherReportReconciler
 {
 
@@ -53,6 +17,19 @@ public class WeatherReportReconciler
         WeatherJobActionType jobActionType)
     {
         string status = "";
+
+        decimal gust = 0;
+        decimal windspeed = 0;
+
+        // make windspeed a decimal
+        if (obs.WindSpeed!.Value != null){
+            windspeed = (decimal)obs.WindSpeed.Value;
+        }
+
+        // gust value isn't aways present
+        if (obs.WindGust!.Value == null) {
+            gust = 0;
+        }
 
         switch(jobActionType)
         {
@@ -79,7 +56,7 @@ public class WeatherReportReconciler
                 {
                     status = "HIGH WIND CONDITIONS";
                 }
-                else if(Math.Abs(obs.WindSpeed!.Value - obs.WindGust!.Value) >= 15)
+                else if(Math.Abs(windspeed - gust) >= 15)
                 {
                     status = "WIND SHEAR ALERT";
                 }
@@ -204,62 +181,62 @@ public class County
 public class Elevation
 {
     public string? UnitCode { get; set; }
-    public int Value { get; set; }
+    public int? Value { get; set; }
 }
 
 public class Temperature
 {
     public string? UnitCode { get; set; }
-    public float Value { get; set; }
+    public float? Value { get; set; }
     public string? QualityControl { get; set; }
 }
 
 public class Dewpoint
 {
     public string? UnitCode { get; set; }
-    public float Value { get; set; }
+    public float? Value { get; set; }
     public string? QualityControl { get; set; }
 }
 
 public class Winddirection
 {
     public string? UnitCode { get; set; }
-    public float Value { get; set; }
+    public float? Value { get; set; }
     public string? QualityControl { get; set; }
 }
 
 public class Windspeed
 {
     public string? UnitCode { get; set; }
-    public float Value { get; set; }
+    public float? Value { get; set; }
     public string? QualityControl { get; set; }
 }
 
 public class Windgust
 {
     public string? UnitCode { get; set; }
-    public float Value { get; set; }
+    public float? Value { get; set; }
     public string? QualityControl { get; set; }
 }
 
 public class Barometricpressure
 {
     public string? UnitCode { get; set; }
-    public float Value { get; set; }
+    public float? Value { get; set; }
     public string? QualityControl { get; set; }
 }
 
 public class Sealevelpressure
 {
     public string? UnitCode { get; set; }
-    public float Value { get; set; }
+    public float? Value { get; set; }
     public string? QualityControl { get; set; }
 }
 
 public class Visibility
 {
     public string? UnitCode { get; set; }
-    public float Value { get; set; }
+    public float? Value { get; set; }
     public string? QualityControl { get; set; }
 }
 
@@ -299,21 +276,21 @@ public class Precipitationlast6hours
 public class Relativehumidity
 {
     public string? UnitCode { get; set; }
-    public float Value { get; set; }
+    public float? Value { get; set; }
     public string? QualityControl { get; set; }
 }
 
 public class Windchill
 {
     public string? UnitCode { get; set; }
-    public float Value { get; set; }
+    public float? Value { get; set; }
     public string? QualityControl { get; set; }
 }
 
 public class Heatindex
 {    
     public string? UnitCode { get; set; }
-    public float Value { get; set; }
+    public float? Value { get; set; }
     public string? QualityControl { get; set; }
 }
 
@@ -326,5 +303,5 @@ public class Cloudlayer
 public class Base
 {
     public string? UnitCode { get; set; }
-    public float Value { get; set; }
+    public float? Value { get; set; }
 }

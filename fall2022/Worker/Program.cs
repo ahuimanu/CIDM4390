@@ -1,4 +1,4 @@
-using Worker;
+using JobWorker;
 
 IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureServices(services =>

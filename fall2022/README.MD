@@ -9,7 +9,7 @@ CIDM4390 - Fall 2022
 * Tests - Unit tests using xUnit
 * Worker - A background worker that handles tasks on an interval
 
-NOTE: Ignore the "Runner" project, it won't be kept.
+NOTE: Ignore the "Runner" project, it is for simple testing and won't be kept.
 
 ## External APIs
 * METAR - [Weather.gov | API Web Service](https://www.weather.gov/documentation/services-web-api)
@@ -27,7 +27,8 @@ NOTE: Ignore the "Runner" project, it won't be kept.
 * [Working with nullable reference types in C#](https://learn.microsoft.com/en-us/dotnet/csharp/nullable-references)
 
 
-
+### JSON Structure of a JOb
+``` json
 {
     "name":"Test Job 4",
     "description": "Test Job Description 4",
@@ -36,3 +37,4 @@ NOTE: Ignore the "Runner" project, it won't be kept.
     "jobFrequencyInMinutes": "5",
     "jobScheduledAT" : "2022-11-23T21:45:37.3083145Z"
 }
+```
