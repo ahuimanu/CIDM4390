@@ -113,6 +113,8 @@ public class WeatherReportJobScheduler
             Status = status
         };
 
+        //update job run timestamp
+
         //log the job result to the database
         await WeatherReportJobScheduler.LogWeatherReportJobResultAsync(outcome);
 

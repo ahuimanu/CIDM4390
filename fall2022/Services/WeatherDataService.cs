@@ -81,6 +81,12 @@ public class WeatherDbContext : DbContext
         return result;
     }
 
+    public bool CheckJobTimer(WeatherReportJob job)
+    {
+        TimeSpan difference = DateTime.Now - job.JobScheduledAt;
+        return difference.TotalMinutes >= job.JobFrequencyInMinutes ? true : false;
+    }    
+
     public async Task<WeatherReportJob> GetWeatherReportJobByIdAsync(int id)
     {
 
@@ -93,12 +99,27 @@ public class WeatherDbContext : DbContext
 
         }
         return job!;
+    }
 
+    public async Task UpdateJobTimeStampByIdAync(int id)
+    {
+        WeatherReportJob? job;
+        using (var db = new WeatherDbContext())
+        {
+            job = await db.WeatherReportJobs
+                          .Where(r => r.ID == id)
+                          .FirstOrDefaultAsync<WeatherReportJob>();
+
+            if(job != null){
+                job.JobScheduledAt = DateTime.Now;
+                //save changes
+                await db.SaveChangesAsync();
+            }                          
+        }
     }
 
     public async Task<List<WeatherReportJob>> GetWeatherReportJobsDueAsync()
     {
-
         List<WeatherReportJob> currentJobs;
 
         using (var db = new WeatherDbContext())
@@ -120,12 +141,6 @@ public class WeatherDbContext : DbContext
 
         }
         return currentJobs!;
-    }
-
-    public bool CheckJobTimer(WeatherReportJob job)
-    {
-        TimeSpan difference = DateTime.Now - job.JobScheduledAt;
-        return difference.TotalMinutes >= job.JobFrequencyInMinutes ? true : false;
     }
 
     /// <summary>
