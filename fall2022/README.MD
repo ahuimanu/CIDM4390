@@ -41,7 +41,7 @@ NOTE: Ignore the "Runner" project, it is for simple testing and won't be kept.
 * [Working with nullable reference types in C#](https://learn.microsoft.com/en-us/dotnet/csharp/nullable-references)
 
 
-### JSON Structure of a JOb
+### JSON Structure of a Job
 ``` json
 {
     "name":"Test Job 4",
