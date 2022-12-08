@@ -24,7 +24,6 @@ NOTE: Ignore the "Runner" project, it is for simple testing and won't be kept.
 1. Use the **SQLite** VS Code Extension to help view the contents of a SQLite database file to check results.
 1. I don't have every last thing checked here, but all of the pieces do fit together
 
-
 ## External APIs
 * METAR - [Weather.gov | API Web Service](https://www.weather.gov/documentation/services-web-api)
 * XPlane - [Scenery Gateway API Documentation](https://gateway.x-plane.com/api)
