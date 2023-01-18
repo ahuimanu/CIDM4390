@@ -2,9 +2,12 @@
 
 A few examples of some software engineering concepts.
 
-## FALL 2022
+## FALL 2023
 
-The main project example is in the [fall2022](fall2022) folder.
+There are two project examples I'll commonly refer to:
+
+-   One project example is in the [fall2022](fall2022) folder. This example is somewhat specific to one of the pojects for this course, but many archictural and design principles are present here
+-   There will be more pfojects to come.
 
 ## Outdated Nuget Packages
 
@@ -25,8 +28,8 @@ It is then possible to use the -
 3. from within this folder: `dotnet new webapi --no-https`
 4. also in webapi: `dotnet add package Microsoft.EntityFrameworkCore --version 3.1.10`
 5. also in webapi (necessary for the scaffolder to work): `dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 3.1.10`
-5. also in webapi: `dotnet add package Microsoft.EntityFrameworkCore.Sqlite --version 3.1.10`
-6. also in webapi: `dotnet add package Microsoft.EntityFrameworkCore.InMemory --version 3.1.10`
+6. also in webapi: `dotnet add package Microsoft.EntityFrameworkCore.Sqlite --version 3.1.10`
+7. also in webapi: `dotnet add package Microsoft.EntityFrameworkCore.InMemory --version 3.1.10`
 
 ### WebApi Controller Scaffolding
 
@@ -48,14 +51,15 @@ We'll test against this api.
 
 SOLID principles
 
-* [unit of work](https://pradeeploganathan.com/architecture/repository-and-unit-of-work-pattern-asp-net-core-3-1/)
-* [my demo from spring 2020 that implements unit of work](https://github.com/ahuimanu/wizarddemo)
-* [older asp.net mvc documentation regarding repository and unit of work](https://docs.microsoft.com/en-us/aspnet/mvc/overview/older-versions/getting-started-with-ef-5-using-mvc-4/implementing-the-repository-and-unit-of-work-patterns-in-an-asp-net-mvc-application)
+-   [unit of work](https://pradeeploganathan.com/architecture/repository-and-unit-of-work-pattern-asp-net-core-3-1/)
+-   [my demo from spring 2020 that implements unit of work](https://github.com/ahuimanu/wizarddemo)
+-   [older asp.net mvc documentation regarding repository and unit of work](https://docs.microsoft.com/en-us/aspnet/mvc/overview/older-versions/getting-started-with-ef-5-using-mvc-4/implementing-the-repository-and-unit-of-work-patterns-in-an-asp-net-mvc-application)
 
 ## Testing
 
 XUnit for unit testing.
 
 Projects:
-* webapi
-* tests
+
+-   webapi
+-   tests
