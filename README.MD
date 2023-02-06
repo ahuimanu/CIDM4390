@@ -2,7 +2,7 @@
 
 A few examples of some software engineering concepts.
 
-## FALL 2023
+## SPRING 2023
 
 There are two project examples I'll commonly refer to:
 
