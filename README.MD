@@ -25,6 +25,11 @@ You can be walked through an interactive updating session with the following com
 
 ## Tools
 
+We can also see what tools are installed and what versions they are at: `dotnet tool list --global`
+You can update a specific tool like this: `dotnet tool update dotnet-ef --global`
+
+Most tools are installed globally, which makes that additional switch important.
+
 The EntityFramework tooling is installed globally: `dotnet tool install --global dotnet-ef --version 7.0.4`
 
 Don't forget that version numbers change all the time.
