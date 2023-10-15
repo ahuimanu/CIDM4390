@@ -1,8 +1,13 @@
+#Stories
+## Story1
+Story
+Conditions of Satisfaction
+
 # CIDM 4390
 
 A few examples of some software engineering concepts.
 
-## SPRING 2023
+## FALL 2023
 
 There are two project examples I'll commonly refer to:
 
