@@ -1,11 +1,11 @@
-#Stories
-## Story1
-Story
-Conditions of Satisfaction
-
 # CIDM 4390
 
 A few examples of some software engineering concepts.
+
+# Minimum Required Tools
+* VS Code
+* Most Recent Dotnet SDK (7.x)
+* Git 
 
 ## FALL 2023
 
