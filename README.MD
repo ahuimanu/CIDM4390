@@ -4,10 +4,10 @@ A few examples of some software engineering concepts.
 
 # Minimum Required Tools
 * VS Code
-* Most Recent Dotnet SDK (7.x)
+* Most Recent Dotnet SDK (8.x)
 * Git 
 
-## FALL 2023
+## SPRING 2024
 
 There are two project examples I'll commonly refer to:
 
