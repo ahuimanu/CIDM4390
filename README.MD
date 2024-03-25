@@ -66,9 +66,9 @@ Scaffolding is a simple way to generate a controller for API Endpoints.
 We have a bunch of adding to do:
 
 ```
-dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design --version 7.0.5
-dotnet add package Microsoft.EntityFrameworkCore.Design --version 7.0.4
-dotnet tool install --global dotnet-aspnet-codegenerator --version 7.0.5
+dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design --version 8.0.2
+dotnet add package Microsoft.EntityFrameworkCore.Design --version 8.0.3
+dotnet tool install --global dotnet-aspnet-codegenerator --version 8.0.3
 dotnet aspnet-codegenerator controller -name NOAAStationsController -async -api -m NOAAtation -dc WebApiDbContext -outDir Controllers
 dotnet aspnet-codegenerator controller -name VatsimMETARController -async -api -m VatsimMETAR -dc WebApiDbContext -outDir Controllers
 ```
