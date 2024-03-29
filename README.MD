@@ -12,7 +12,13 @@ A few examples of some software engineering concepts.
 There are some project examples I'll commonly refer to:
 
 -   One project example is in the [fall2022](fall2022) folder. This example is somewhat specific to one of the pojects for this course, but many archictural and design principles are present here
--   There will be more pfojects to come.
+-   There may be more projects to come.
+
+## Tuckman's Team Development Stages
+
+You might find this useful to better understand your team's evolution (Tuckman, 1965 - https://psycnet.apa.org/doiLanding?doi=10.1037%2Fh0022100)
+
+![Tuckman](./spring2024/images/Image-Showing-Team-Journey-from-Forming-Storming-Norming-and-Performing-Stages.jpg)
 
 ## Outdated Nuget Packages
 
