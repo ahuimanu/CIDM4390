@@ -7,11 +7,11 @@ A few examples of some software engineering concepts.
 * Most Recent Dotnet SDK (8.x)
 * Git 
 
-## SPRING 2024
+## FALL 2024
 
 There are some project examples I'll commonly refer to:
 
--   One project example is in the [fall2022](fall2022) folder. This example is somewhat specific to one of the pojects for this course, but many archictural and design principles are present here
+-   One project example is in the [ModelArchitecture](ModelArchitecture) folder. This example is somewhat specific to one of the pojects for this course, but many archictural and design principles are present here
 -   There may be more projects to come.
 
 ## Tuckman's Team Development Stages
@@ -45,7 +45,7 @@ You can update a specific tool like this: `dotnet tool update dotnet-ef --global
 
 Most tools are installed globally, which makes that additional switch important.
 
-The EntityFramework tooling is installed globally: `dotnet tool install --global dotnet-ef --version 8.0.3`
+The EntityFramework tooling is installed globally: `dotnet tool install --global dotnet-ef --version 8.0.10`
 
 Don't forget that version numbers change all the time.
 
