@@ -1,6 +1,6 @@
-﻿using Services.WeatherDataService;
-using Services.WeatherService;
-using Services.WeatherReportJobService;
+﻿using Services.CaptivePortalDataService;
+using Services.CaptivePortalProfileService;
+using Services.CaptivePortalProfileJobService;
 
 
 // See https://aka.ms/new-console-template for more information
@@ -10,27 +10,26 @@ using Services.WeatherReportJobService;
 
 Console.WriteLine("Checking the Job Scheduler");
 
-WeatherReportJob? job = WeatherReportJobFactory.CreateWeatherReportJob(
-    "KAMA Temperature",
-    "KAMA Tempeature Check",
-    "KAMA",
-    WeatherJobActionType.CHECK_TEMPERATURE_QUALITY,
-    new Random().Next(1, 100),
+GuestProfileJob? job = GuestProfileJobFactory.CreateGuestProfileJob(
+    1,
+    DateTime.Now,
+    "user@example.com",
+    true,
     DateTime.Now
 );
 
 Console.WriteLine($"Submitting job for {job}");
 
 // the "bang" here is the null forgiving operator
-await WeatherReportJobScheduler.ScheduleWeatherReportJobAsync(job!);
+await GuestProfileJobScheduler.ScheduleGuestProfileJobAsync(job!);
 
 Console.WriteLine("Job Scheduled");
 
 Console.WriteLine("Get Jobs");
 
-using (var db = new WeatherDbContext())
+using (var db = new CaptivePortalDbContext())
 {
-    var jobs = db.WeatherReportJobs.ToList<WeatherReportJob>();
+    var jobs = db.GuestProfileJobs.ToList<GuestProfileJob>();
     foreach (var wjob in jobs)
     {
         Console.WriteLine(wjob);

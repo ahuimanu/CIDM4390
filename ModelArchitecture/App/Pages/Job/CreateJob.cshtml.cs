@@ -6,9 +6,8 @@ using System.Text.Json;
 using System.Net.Http;
 using System.Net.Http.Headers;
 
-using Services.WeatherDataService;
-using Services.WeatherService;
-using Services.WeatherReportJobService;
+using Services.CaptivePortalProfileJobService;
+using Services.CaptivePortalProfileService;
 
 namespace web.Pages.Job
 {
@@ -16,8 +15,8 @@ namespace web.Pages.Job
     {
 
         [BindProperty]
-        public WeatherReportJob? Job { get; set; }
-        public List<WeatherReportJob>? Jobs { get; set; }
+        public GuestProfileJob? Job { get; set; }
+        public List<GuestProfileJob>? Jobs { get; set; }
 
         public string? JSONOutput { get; set; }
 
@@ -32,7 +31,7 @@ namespace web.Pages.Job
                 //GET Method
                 try
                 {
-                    Jobs = await client.GetFromJsonAsync<List<WeatherReportJob>>("jobs/all");
+                    Jobs = await client.GetFromJsonAsync<List<GuestProfileJob>>("jobs/all");
                 }
                 catch (Exception exp)
                 {
@@ -47,9 +46,9 @@ namespace web.Pages.Job
             {
                 //do the db stuff
                 //cast the int back to the enum
-                Job!.JobActionType = (WeatherJobActionType)Job.JobActionType;
+                // Job!.JobActionType = (WeatherJobActionType)Job.JobActionType;
                 //timestamp now                
-                Job.JobScheduledAt = DateTime.Now;
+                Job!.JobScheduledAt = DateTime.Now;
 
                 //make API call - https://www.c-sharpcorner.com/article/calling-web-api-using-httpclient/
                 using (var client = new HttpClient())

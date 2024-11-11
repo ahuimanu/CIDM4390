@@ -38,6 +38,5 @@ public record GuestProfile
                 return AgeGroup.Senior;
             }
         }
-    }   
-
+    }
 }

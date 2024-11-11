@@ -1,6 +1,6 @@
 namespace JobWorker;
 
-using Services.WeatherReportJobService;
+using Services.CaptivePortalProfileJobService;
 
 public class Worker : BackgroundService
 {
@@ -32,7 +32,7 @@ public class Worker : BackgroundService
             }            
 
             // Do the job
-            await WeatherReportJobScheduler.RunScheduledJobs();            
+            await GuestProfileJobScheduler.RunScheduledJobs();            
             
             // Wait a minute
             await Task.Delay(1000 * 60, stoppingToken);

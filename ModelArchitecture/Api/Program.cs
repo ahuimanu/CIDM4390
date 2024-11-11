@@ -1,10 +1,10 @@
 // database services
-using Services.WeatherService;
-using Services.WeatherReportService;
-using Services.WeatherReportJobService;
+using Services.CaptivePortalDataService;
 
 // background worker
 using JobWorker;
+using Services.CaptivePortalProfileJobService;
+using Services.CaptivePortalEmailService;
 
 // SETUP
 var builder = WebApplication.CreateBuilder(args);
@@ -31,12 +31,12 @@ var stations = new[]{""};
 // ENDPOINTS
 // GET /job/all
 app.MapGet("/jobs/all", async () => {
-    List<WeatherReportJob> jobs = await WeatherReportJobScheduler.GetWeatherReportJobsAsync();
+    List<GuestProfileJob> jobs = await GuestProfileJobScheduler.GetGuestProfileJobsAsync();
     return jobs;
 });
 
 app.MapGet("/jobs/due", async () => {
-    List<WeatherReportJob> jobs = await WeatherReportJobScheduler.GetScheduledJobsToRunAsync();
+    List<GuestProfileJob> jobs = await GuestProfileJobScheduler.GetScheduledJobsToRunAsync();
     return jobs;
 });
 
@@ -44,21 +44,22 @@ app.MapGet("/jobs/due", async () => {
 app.MapPost(
     "/jobs/create",
     // do stuff here
-    async (WeatherReportJob? job) => {
-        var output = await WeatherReportJobScheduler.ScheduleWeatherReportJobAsync(job!);
+    async (GuestProfileJob? job) => {
+        var output = await GuestProfileJobScheduler.ScheduleGuestProfileJobAsync(job!);
         return output;
     }
 );
 
-// GET /obs/{station}/raw
+// GET /validate/{email}
 app.MapGet(
     "/vadidate/{email}", 
-    async (string email) => {
+    (string email) => {
 
-        WeatherStationObservation? obs = await WeatherDotGovAPI.GetLastestObservationAsync(id);
-        // write to db here (call wep service to write to db)
-        Console.WriteLine($"Returned value: {obs?.RawMessage}");
-        return obs?.RawMessage;
+        
+        // call external service to validate email
+        CaptivePortalEmailValidatorService emailValidator = new CaptivePortalEmailValidatorService();
+        
+        return emailValidator.IsValidEmail(email);
     }
 );
 

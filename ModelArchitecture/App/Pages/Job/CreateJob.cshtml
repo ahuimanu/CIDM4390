@@ -93,9 +93,9 @@
           @foreach (var job in @Model.Jobs)
           {
             <tr>
-              <td>Name: @job.Name</td>
-              <td>Description: @job.Description</td>
-              <td>Station ID: @job.ICAOStationId</td>
+              <td>Email: @job.Email</td>
+              <td>Valid: @job.IsEmailValid</td>
+              <td>Date: @job.Date</td>
             </tr>            
           }        
         }
