@@ -3,14 +3,14 @@ namespace Tests;
 using Xunit;
 using Xunit.Abstractions;
 
-public class WeatherServicesUnitTests
+public class GuestProfileServicesUnitTests
 {
 
     // capturing output
     // https://xunit.net/docs/capturing-output
     private readonly ITestOutputHelper output;
 
-    public WeatherServicesUnitTests(ITestOutputHelper output)
+    public GuestProfileServicesUnitTests(ITestOutputHelper output)
     {
         this.output = output;
     }

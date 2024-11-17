@@ -29,12 +29,12 @@ NOTE: Ignore the "Runner" project, it is for simple testing and won't be kept.
 1. Use the **SQLite** VS Code Extension to help view the contents of a SQLite database file to check results.
 1. I don't have every last thing checked here, but all of the pieces do fit together
 
-## External APIs
-* METAR - [Weather.gov | API Web Service](https://www.weather.gov/documentation/services-web-api)
-* Airports - 
-    * [Wikipedia Page Scraping](https://en.wikipedia.org/wiki/Dallas_Fort_Worth_International_Airport)
-    * [Airport Data API](https://www.airport-data.com/api/doc.php)
-    * Additional Airport Information - [NavData](https://developer.x-plane.com/article/navdata-in-x-plane-11/)
+## Note about Microsoft Dev Certs for SSL/TLS
+We need to install the microsoft dev certifications: https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-dev-certs
+```
+dotnet dev-certs https --clean
+dotnet dev-certs https --trust
+```
 
 ## References
 * [Tutorial: Create a minimal web API with ASP.NET Core](https://learn.microsoft.com/en-us/aspnet/core/tutorials/min-web-api?view=aspnetcore-6.0&tabs=visual-studio-code)
@@ -43,15 +43,3 @@ NOTE: Ignore the "Runner" project, it is for simple testing and won't be kept.
 * [Background tasks with hosted services in ASP.NET Core](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services?view=aspnetcore-6.0&tabs=netcore-cli)
 * [Working with nullable reference types in C#](https://learn.microsoft.com/en-us/dotnet/csharp/nullable-references)
 
-
-### JSON Structure of a Job
-``` json
-{
-    "name":"Test Job 4",
-    "description": "Test Job Description 4",
-    "icaoStationId": "KAUS",
-    "jobActionType": 1,
-    "jobFrequencyInMinutes": "5",
-    "jobScheduledAT" : "2022-11-23T21:45:37.3083145Z"
-}
-```

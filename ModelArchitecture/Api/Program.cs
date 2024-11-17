@@ -2,7 +2,7 @@
 using Services.CaptivePortalDataService;
 
 // background worker
-using JobWorker;
+// using JobWorker;
 using Services.CaptivePortalProfileJobService;
 using Services.CaptivePortalEmailService;
 
@@ -13,7 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddHostedService<Worker>();
+// builder.Services.AddHostedService<Worker>();
 
 var app = builder.Build();
 
@@ -26,26 +26,14 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var stations = new[]{""};
 
 // ENDPOINTS
-// GET /job/all
-app.MapGet("/jobs/all", async () => {
-    List<GuestProfileJob> jobs = await GuestProfileJobScheduler.GetGuestProfileJobsAsync();
-    return jobs;
-});
 
-app.MapGet("/jobs/due", async () => {
-    List<GuestProfileJob> jobs = await GuestProfileJobScheduler.GetScheduledJobsToRunAsync();
-    return jobs;
-});
-
-// POST /job/create 
 app.MapPost(
-    "/jobs/create",
-    // do stuff here
-    async (GuestProfileJob? job) => {
-        var output = await GuestProfileJobScheduler.ScheduleGuestProfileJobAsync(job!);
+    "/profile/create/{email}",
+    async (string email) => {
+        var job = GuestProfileJobFactory.CreateGuestProfileJob(email, DateTime.Now);
+        var output = await GuestProfileJobScheduler.DoGuestProfileJobAsync(job!);
         return output;
     }
 );
@@ -54,11 +42,8 @@ app.MapPost(
 app.MapGet(
     "/vadidate/{email}", 
     (string email) => {
-
-        
         // call external service to validate email
-        CaptivePortalEmailValidatorService emailValidator = new CaptivePortalEmailValidatorService();
-        
+        CaptivePortalEmailValidatorService emailValidator = new CaptivePortalEmailValidatorService();     
         return emailValidator.IsValidEmail(email);
     }
 );

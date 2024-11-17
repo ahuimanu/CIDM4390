@@ -4,17 +4,13 @@ using Services.CaptivePortalDataService;
 using Services.CaptivePortalEmailService;
 using Services.CaptivePortalProfileService;
 using Services.CaptivePortalProfileJobService;
-
+using System.Threading.Tasks.Dataflow;
 
 public record GuestProfileJob
 {
     public int ID { get; set; }
     public DateTime Date { get; set; }
     public string? Email { get; set; }
-    public bool IsEmailValid { get; set; }
-    public int JobFrequencyInMinutes { get; set; }
-    public DateTime JobScheduledAt { get; set; }
-
 }
 
 public record GuestProfileJobResult
@@ -22,8 +18,8 @@ public record GuestProfileJobResult
     public int ID { get; set; }
     public DateTime Date { get; set; }
     public string? Email { get; set; }
-    public bool IsEmailValid { get; set; }
-    public bool IsEmailSent { get; set; }
+    public int GuestProfileID { get; set; }
+
 }
 
 
@@ -36,89 +32,84 @@ public record GuestProfileJobResult
 public class GuestProfileJobFactory
 {
     public static GuestProfileJob? CreateGuestProfileJob(
-
-    // public int ID { get; set; }
-    // public DateTime Date { get; set; }
-    // public string? Email { get; set; }
-    // public bool IsEmailValid { get; set; }
-
-        int id,
-        DateTime date,
         string? email,
-        bool isEmailValid,
-        DateTime jobScheduledAT
+        DateTime date
     )
     {
-        return new GuestProfileJob
+        var guestjob = new GuestProfileJob
         {
-            ID = id,
             Date = date,
             Email = email,
-            IsEmailValid = isEmailValid,
-            JobScheduledAt = jobScheduledAT,
         };
+        return guestjob;
     }
 }
 /// <summary>
-/// Class with static methods that manage weather report jobs.
+/// Manages the scheduling of jobs to create guest profiles.
 /// </summary>
 public class GuestProfileJobScheduler
 {
 
     /// <summary>
-    /// Called from a worker backgrund process to execute a scheduled job.
+    /// Schedules a job to create a guest profile.
     /// </summary>
-    /// <param name="job">WeatherReportJob to run</param>
-    /// <returns>Completed WeatherReportJob</returns>
-    public static async Task DoScheduledJobAsync(GuestProfileJob job)
+    /// <param name="job"></param>
+    /// <returns></returns> <summary>
+    /// 
+    /// </summary>
+    /// <param name="job"></param>
+    /// <returns></returns>
+    public static async Task<GuestProfile> DoGuestProfileJobAsync(GuestProfileJob job)
     {
 
         //read job
+        string email = job.Email!;
 
-        //create guest profile
-        GuestProfile? profile = null;
+        // check email
+        EmailValidatorService emailValidator = new CaptivePortalEmailValidatorService();
+
+        // validate email
+        bool isEmailValid = emailValidator.IsValidEmail(email);
+
+        // create profile
+        GuestProfile? profile = new GuestProfile();
+        profile.Email = email;
 
         // call external service for validation
+        // TODO
         // call external service to grant access
+        // TODO
+
+        // add the profile to the database
+        await GuestProfileJobScheduler.CreateGuestProfileAsync(profile);
 
         //create the job result
-        GuestProfileJobResult? outcome = null;
-
-        //update job run timestamp
+        GuestProfileJobResult? outcome = new GuestProfileJobResult();
+        outcome.Email = email;
+        outcome.Date = DateTime.Now;
+        outcome.GuestProfileID = profile.ID;
 
         //log the job result to the database
         await GuestProfileJobScheduler.LogGuestProfileJobResultAsync(outcome);
 
+        return profile;
+
     }
 
     /// <summary>
-    /// Get all jobs that are due to be run
+    /// Add a new guest profile
     /// </summary>
-    /// <returns>List of jobs to run</returns>
-    public async static Task<List<GuestProfileJob>> GetScheduledJobsToRunAsync()
+    /// <param name="profile"></param>
+    /// <returns></returns>
+    public async static Task<GuestProfile> CreateGuestProfileAsync(GuestProfile profile)
     {
-        List<GuestProfileJob> currentJobs = new List<GuestProfileJob>();
         using (var db = new CaptivePortalDbContext())
         {
-            currentJobs = await db.GetWeatherReportJobsDueAsync();
+            await db.AddGuestProfileAsync(profile);
         }
-
-        return currentJobs;
+        return profile;
     }
 
-    /// <summary>
-    /// Gets all Weather Report Jobs
-    /// </summary>
-    /// <returns>List of Weather Report Jobs</returns>
-    public async static Task<List<GuestProfileJob>> GetGuestProfileJobsAsync()
-    {
-        var jobs = new List<GuestProfileJob>();
-        using (var db = new CaptivePortalDbContext())
-        {
-            jobs = await db.GetGuestProfileJobsAsync();
-        }
-        return jobs;
-    }
 
     /// <summary>
     /// Logs results of the completed job.
@@ -133,35 +124,4 @@ public class GuestProfileJobScheduler
         }
         return result;
     }
-
-    /// <summary>
-    /// Runs the Scheduled Jobs
-    /// </summary>
-    /// <returns>Task</returns>
-    public async static Task RunScheduledJobs()
-    {
-
-        List<GuestProfileJob> currentJobs = await GetScheduledJobsToRunAsync();
-
-        foreach (GuestProfileJob job in currentJobs)
-        {
-            await GuestProfileJobScheduler.DoScheduledJobAsync(job);
-        }
-    }
-
-
-    /// <summary>
-    /// Add job to the schedule
-    /// </summary>
-    /// <param name="job"></param>
-    /// <returns>scheduled job</returns>
-    public async static Task<GuestProfileJob> ScheduleGuestProfileJobAsync(GuestProfileJob job)
-    {
-        using (var db = new CaptivePortalDbContext())
-        {
-            await db.AddGuestProfileJobAsync(job);
-        }
-        return job;
-    }
-
 }

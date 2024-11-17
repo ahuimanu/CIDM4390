@@ -1,0 +1,21 @@
+﻿@page
+@model App.Pages.Profile.CreateProfileModel
+@{
+    ViewData["Title"] = "Create Profile";
+}
+<form method="POST">
+  <div class="form-group row">
+    <label for="name" class="col-sm-2 col-form-label">Email</label>
+    <div class="col-sm-10">
+      <input 
+            id="email"
+            name="email"
+            type="email" 
+            class="form-control" 
+            placeholder="Enter email">        
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+<div class="container">
+</div>

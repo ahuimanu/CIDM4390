@@ -10,18 +10,25 @@ using Services.CaptivePortalProfileJobService;
 
 Console.WriteLine("Checking the Job Scheduler");
 
+
 GuestProfileJob? job = GuestProfileJobFactory.CreateGuestProfileJob(
-    1,
-    DateTime.Now,
-    "user@example.com",
-    true,
-    DateTime.Now
+    1,                      // id   
+    DateTime.Now,           // date
+    "user@example.com",     // email
+    true                    // isEmailValid
 );
 
 Console.WriteLine($"Submitting job for {job}");
 
 // the "bang" here is the null forgiving operator
-await GuestProfileJobScheduler.ScheduleGuestProfileJobAsync(job!);
+using (var db = new CaptivePortalDbContext())
+{
+    var jobs = db.GuestProfileJobs.ToList<GuestProfileJob>();
+    foreach (var wjob in jobs)
+    {
+        Console.WriteLine(wjob);
+    }
+}
 
 Console.WriteLine("Job Scheduled");
 
