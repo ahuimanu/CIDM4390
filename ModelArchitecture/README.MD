@@ -3,7 +3,6 @@
 CIDM4390 - Fall 2024
 
 # Captive Portal Features
-
 * Capture and validate email
 * Capture and render text content
 

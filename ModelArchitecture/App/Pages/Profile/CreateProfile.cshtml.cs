@@ -27,13 +27,13 @@ namespace App.Pages.Profile
                 var email = Request.Form["email"];
 
                 Console.WriteLine($"{email}");
-                
+
                 //cast the int back to the enum
-                var Job = new GuestProfileJob()
+                var job = new GuestProfileJob()
                 {
                     //timestamp now                                    
                     Date = DateTime.Now,
-                    Email = ""
+                    Email = email,
                 };
 
                 //make API call - https://www.c-sharpcorner.com/article/calling-web-api-using-httpclient/
@@ -44,17 +44,16 @@ namespace App.Pages.Profile
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                     //POST Method
-                    HttpResponseMessage response = await client.PostAsJsonAsync("/profile/create/{email}", Job);
+                    HttpResponseMessage response = await client.PostAsJsonAsync("/profile/create/{email}", job);
 
                     if (response.IsSuccessStatusCode)
                     {
                         // Get the URI of the created resource.
                         Uri? returnUrl = response.Headers.Location;
-                        Console.WriteLine("BRUH");
-                        Console.WriteLine(returnUrl);
+                        Console.WriteLine($"{await response.Content.ReadAsStringAsync()}");
+                        Console.WriteLine($@"{job}");
                     }
                 }
-
             }
             //return Redirect("/");
             return Page();
