@@ -93,5 +93,4 @@ public class CaptivePortalDbContext : DbContext
         }
         return result;
     }
-
 }

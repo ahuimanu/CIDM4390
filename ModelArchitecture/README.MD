@@ -3,7 +3,6 @@
 CIDM4390 - Fall 2024
 
 # Captive Portal Features
-
 * Capture and validate email
 * Capture and render text content
 
@@ -12,7 +11,7 @@ CIDM4390 - Fall 2024
 * App - RazorPages front-end for client requests
 * Services - Class Libraries that determine models and business logic actions
 * Tests - Unit tests using xUnit
-* Worker - A background worker that handles tasks on an interval
+* Worker - A background worker that handles tasks on an interval [NOT USED]
 
 NOTE: Ignore the "Runner" project, it is for simple testing and won't be kept.
 
@@ -43,3 +42,5 @@ dotnet dev-certs https --trust
 * [Background tasks with hosted services in ASP.NET Core](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services?view=aspnetcore-6.0&tabs=netcore-cli)
 * [Working with nullable reference types in C#](https://learn.microsoft.com/en-us/dotnet/csharp/nullable-references)
 
+Notes:
+- the `/swagger` endpoint in the API shows you browsable documentation

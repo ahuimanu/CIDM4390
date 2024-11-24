@@ -63,8 +63,11 @@ public class GuestProfileJobScheduler
     public static async Task<GuestProfile> DoGuestProfileJobAsync(GuestProfileJob job)
     {
 
-        //read job
+
+        //read email from job
         string email = job.Email!;
+
+        GuestProfile? profile = null;
 
         // check email
         EmailValidatorService emailValidator = new CaptivePortalEmailValidatorService();
@@ -72,17 +75,25 @@ public class GuestProfileJobScheduler
         // validate email
         bool isEmailValid = emailValidator.IsValidEmail(email);
 
-        // create profile
-        GuestProfile? profile = new GuestProfile();
-        profile.Email = email;
-
         // call external service for validation
         // TODO
+
+        // check to see if the profile exists
+        // TODO
+        if(await GuestProfileJobScheduler.CheckEmailExists(email) != email)
+        {
+            Console.WriteLine($"bruh: {email}");
+            // create profile
+            profile = new GuestProfile();
+            profile.Email = email;
+
+            // add the profile to the database
+            await GuestProfileJobScheduler.CreateGuestProfileAsync(profile);
+
+        }
+
         // call external service to grant access
         // TODO
-
-        // add the profile to the database
-        await GuestProfileJobScheduler.CreateGuestProfileAsync(profile);
 
         //create the job result
         GuestProfileJobResult? outcome = new GuestProfileJobResult();
@@ -124,5 +135,16 @@ public class GuestProfileJobScheduler
             await db.AddGuestProfileJobResultAsync(result);
         }
         return result;
+    }
+
+    public static async Task<string> CheckEmailExists(string email)
+    {
+        var emailfound = "";
+        using (var db = new CaptivePortalDbContext())
+        {
+            var profile = db.GuestProfiles.Single(x => x.Email == email);
+            emailfound = profile != null ? profile.Email : emailfound;
+        }
+        return emailfound;
     }
 }
