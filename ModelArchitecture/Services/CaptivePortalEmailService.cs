@@ -1,5 +1,8 @@
 namespace Services.CaptivePortalEmailService;
 
+using Microsoft.EntityFrameworkCore;
+
+using Services.CaptivePortalDataService;
 using EmailValidation;
 
 public abstract class EmailValidatorService
@@ -15,3 +18,4 @@ public class CaptivePortalEmailValidatorService : EmailValidatorService
         return EmailValidator.Validate(email);
     }
 }
+

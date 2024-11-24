@@ -62,7 +62,7 @@ public class CaptivePortalDbContext : DbContext
     public DbSet<GuestProfileJobResult> GuestProfileJobResults => Set<GuestProfileJobResult>();
 
     //add a Guest Profile
-    public async Task<GuestProfile> AddGuestProfileAsync(GuestProfile profile)
+    public static async Task<GuestProfile> AddGuestProfileAsync(GuestProfile profile)
     {
         using (var db = new CaptivePortalDbContext())
         {
@@ -73,7 +73,7 @@ public class CaptivePortalDbContext : DbContext
     }
 
     //add a Guest Profile job
-    public async Task<GuestProfileJob> AddGuestProfileJobAsync(GuestProfileJob job)
+    public static async Task<GuestProfileJob> AddGuestProfileJobAsync(GuestProfileJob job)
     {
         using (var db = new CaptivePortalDbContext())
         {
@@ -84,7 +84,7 @@ public class CaptivePortalDbContext : DbContext
     }
 
     //add a Guest Profile job report
-    public async Task<GuestProfileJobResult> AddGuestProfileJobResultAsync(GuestProfileJobResult result)
+    public static async Task<GuestProfileJobResult> AddGuestProfileJobResultAsync(GuestProfileJobResult result)
     {
         using (var db = new CaptivePortalDbContext())
         {
@@ -93,4 +93,31 @@ public class CaptivePortalDbContext : DbContext
         }
         return result;
     }
+
+    //get all guest profiles
+    public static async Task<List<GuestProfile>> GetAllGuestProfilesAsync()
+    {
+        using var db = new CaptivePortalDbContext();
+        return await db.GuestProfiles.ToListAsync();
+    }
+
+    //get single guest profile
+    public static async Task<GuestProfile> GetGuestProfileAsync(string email)
+    {
+        using var db = new CaptivePortalDbContext();
+        var profile = await db.GuestProfiles.FirstOrDefaultAsync(x => x.Email == email);
+        return profile!;
+    }
+
+    public static async Task<string> CheckEmailExistsAsync(string email)
+    {
+        var emailfound = "none";
+        using (var db = new CaptivePortalDbContext())
+        {
+            var profile = await db.GuestProfiles.FirstOrDefaultAsync(x => x.Email == email);
+            emailfound = profile != null ? profile.Email : emailfound;
+            Console.WriteLine($"email found is: {emailfound}");
+        }
+        return emailfound!;
+    }    
 }

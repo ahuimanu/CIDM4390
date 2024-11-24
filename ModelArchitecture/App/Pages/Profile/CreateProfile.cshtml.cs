@@ -5,6 +5,7 @@ using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
+using Services.CaptivePortalDataService;
 using Services.CaptivePortalProfileJobService;
 using Services.CaptivePortalProfileService;
 
@@ -44,13 +45,13 @@ namespace App.Pages.Profile
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                     //POST Method
-                    HttpResponseMessage response = await client.PostAsJsonAsync("/profile/create/{email}", job);
+                    HttpResponseMessage response = await client.PostAsJsonAsync($"/profile/create/{job.Email}", job);
 
                     if (response.IsSuccessStatusCode)
                     {
                         // Get the URI of the created resource.
-                        Uri? returnUrl = response.Headers.Location;
-                        Console.WriteLine("URI: " + returnUrl);
+                        var profileJob = await response.Content.ReadFromJsonAsync<GuestProfileJob>();
+                        Console.WriteLine("Profile Job: " + profileJob);
                     }
                 }
             }

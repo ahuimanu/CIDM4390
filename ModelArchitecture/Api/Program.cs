@@ -1,8 +1,6 @@
 // database services
 using Services.CaptivePortalDataService;
 using Services.CaptivePortalEmailService;
-// background worker
-// using JobWorker;
 using Services.CaptivePortalProfileJobService;
 
 // SETUP
@@ -12,7 +10,6 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-// builder.Services.AddHostedService<Worker>();
 
 var app = builder.Build();
 
@@ -28,6 +25,7 @@ app.UseHttpsRedirection();
 
 // ENDPOINTS
 
+// PROFILE ////////////////////////////////////////////////////////////////////
 app.MapPost(
     "/profile/create/{email}",
     async (string email) =>
@@ -38,6 +36,26 @@ app.MapPost(
     }
 );
 
+// GET /profile/get/{email}
+app.MapGet(
+    "/profile/get/{email}",
+    async (string email) =>
+    {
+        return await CaptivePortalDbContext.GetGuestProfileAsync(email);
+    }
+);
+
+
+// GET /profile/all
+app.MapGet(
+    "/profile/all",
+    async () =>
+    {
+        return await CaptivePortalDbContext.GetAllGuestProfilesAsync();
+    }
+);
+
+// VALIDATE ///////////////////////////////////////////////////////////////////
 // GET /validate/{email}
 app.MapGet(
     "/vadidate/{email}",
@@ -46,6 +64,17 @@ app.MapGet(
         // call external service to validate email
         CaptivePortalEmailValidatorService emailValidator = new CaptivePortalEmailValidatorService();
         return emailValidator.IsValidEmail(email);
+    }
+);
+
+// GET /validate/{email}
+app.MapGet(
+    "/vadidate/exists/{email}",
+    async (string email) =>
+    {
+        // call external service to validate email
+        string emailFound = await CaptivePortalDbContext.CheckEmailExistsAsync(email);
+        return emailFound;
     }
 );
 

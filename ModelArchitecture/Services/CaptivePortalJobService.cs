@@ -2,6 +2,8 @@ namespace Services.CaptivePortalProfileJobService;
 
 using System.Threading.Tasks.Dataflow;
 
+using Microsoft.EntityFrameworkCore;
+
 using Services.CaptivePortalDataService;
 using Services.CaptivePortalEmailService;
 using Services.CaptivePortalProfileJobService;
@@ -52,18 +54,12 @@ public class GuestProfileJobScheduler
 {
 
     /// <summary>
-    /// Schedules a job to create a guest profile.
+    /// Take job profile job to create profile
     /// </summary>
-    /// <param name="job"></param>
-    /// <returns></returns> <summary>
-    /// 
-    /// </summary>
-    /// <param name="job"></param>
-    /// <returns></returns>
+    /// <param name="job">GuestProfile job</param>
+    /// <returns>Completed Guest Profile</returns>
     public static async Task<GuestProfile> DoGuestProfileJobAsync(GuestProfileJob job)
     {
-
-
         //read email from job
         string email = job.Email!;
 
@@ -79,72 +75,35 @@ public class GuestProfileJobScheduler
         // TODO
 
         // check to see if the profile exists
-        // TODO
-        if(await GuestProfileJobScheduler.CheckEmailExists(email) != email)
+        if (await CaptivePortalDbContext.CheckEmailExistsAsync(email) != email)
         {
-            Console.WriteLine($"bruh: {email}");
+            Console.WriteLine($"email found is: {email}");
+
             // create profile
-            profile = new GuestProfile();
-            profile.Email = email;
+            profile = new GuestProfile
+            {
+                Email = email
+            };
 
             // add the profile to the database
-            await GuestProfileJobScheduler.CreateGuestProfileAsync(profile);
-
+            await CaptivePortalDbContext.AddGuestProfileAsync(profile);
         }
 
         // call external service to grant access
         // TODO
 
         //create the job result
-        GuestProfileJobResult? outcome = new GuestProfileJobResult();
-        outcome.Email = email;
-        outcome.Date = DateTime.Now;
-        outcome.GuestProfileID = profile.ID;
+        GuestProfileJobResult? outcome = new()
+        {
+            Email = email,
+            Date = DateTime.Now,
+            GuestProfileID = profile!.ID
+        };
 
         //log the job result to the database
-        await GuestProfileJobScheduler.LogGuestProfileJobResultAsync(outcome);
+        await CaptivePortalDbContext.AddGuestProfileJobResultAsync(outcome);
 
         return profile;
 
-    }
-
-    /// <summary>
-    /// Add a new guest profile
-    /// </summary>
-    /// <param name="profile"></param>
-    /// <returns></returns>
-    public async static Task<GuestProfile> CreateGuestProfileAsync(GuestProfile profile)
-    {
-        using (var db = new CaptivePortalDbContext())
-        {
-            await db.AddGuestProfileAsync(profile);
-        }
-        return profile;
-    }
-
-
-    /// <summary>
-    /// Logs results of the completed job.
-    /// </summary>
-    /// <param name="result">WeatherReportJobResult</param></param>
-    /// <returns>Completed WeatherReportJob</returns>
-    public async static Task<GuestProfileJobResult> LogGuestProfileJobResultAsync(GuestProfileJobResult result)
-    {
-        using (var db = new CaptivePortalDbContext())
-        {
-            await db.AddGuestProfileJobResultAsync(result);
-        }
-        return result;
-    }
-
-    public static async Task<string> CheckEmailExists(string email)
-    {
-        var emailfound = "";
-        using (var db = new CaptivePortalDbContext())
-        {
-            var profile = db.GuestProfiles.Single(x => x.Email == email);
-            emailfound = profile != null ? profile.Email : emailfound;
-        }
-        return emailfound;
     }
 }
