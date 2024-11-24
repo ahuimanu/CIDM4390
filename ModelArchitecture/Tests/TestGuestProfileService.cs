@@ -1,9 +1,9 @@
 namespace Tests;
 
+using Services.CaptivePortalEmailService;
+
 using Xunit;
 using Xunit.Abstractions;
-
-using Services.CaptivePortalEmailService;
 
 public class GuestProfileServicesUnitTests
 {

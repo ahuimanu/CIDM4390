@@ -1,10 +1,9 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-
-using System.Text.Json;
-
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text.Json;
+
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 using Services.CaptivePortalProfileJobService;
 using Services.CaptivePortalProfileService;

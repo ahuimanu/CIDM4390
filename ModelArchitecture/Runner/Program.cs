@@ -1,10 +1,12 @@
 ﻿using Services.CaptivePortalDataService;
-using Services.CaptivePortalProfileService;
 using Services.CaptivePortalProfileJobService;
+using Services.CaptivePortalProfileService;
 
+// this is a quick console app to test the job scheduler. This is useful to see
+// how the job scheduler works in a simple console app where the steps are all in one place.
 
 // See https://aka.ms/new-console-template for more information
-Console.WriteLine("Checking the Job Scheduler");
+Console.WriteLine("Make a new Guest Profile Job");
 
 
 GuestProfileJob? job = GuestProfileJobFactory.CreateGuestProfileJob(
@@ -14,31 +16,5 @@ GuestProfileJob? job = GuestProfileJobFactory.CreateGuestProfileJob(
 
 Console.WriteLine($"Submitting job for {job}");
 
-// the "bang" here is the null forgiving operator
-using (var db = new CaptivePortalDbContext())
-{
-    var jobs = db.GuestProfileJobs.ToList<GuestProfileJob>();
-    foreach (var wjob in jobs)
-    {
-        Console.WriteLine(wjob);
-    }
-}
-
-Console.WriteLine("Job Scheduled");
-
-Console.WriteLine("Get Jobs");
-
-using (var db = new CaptivePortalDbContext())
-{
-    var jobs = db.GuestProfileJobs.ToList<GuestProfileJob>();
-    foreach (var wjob in jobs)
-    {
-        Console.WriteLine(wjob);
-    }
-}
-
-
-
-
-
-
+// bang operator is the null-forgiving operator
+GuestProfile profile = await GuestProfileJobScheduler.DoGuestProfileJobAsync(job!);

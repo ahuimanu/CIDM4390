@@ -1,10 +1,9 @@
 // database services
 using Services.CaptivePortalDataService;
-
+using Services.CaptivePortalEmailService;
 // background worker
 // using JobWorker;
 using Services.CaptivePortalProfileJobService;
-using Services.CaptivePortalEmailService;
 
 // SETUP
 var builder = WebApplication.CreateBuilder(args);

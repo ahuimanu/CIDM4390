@@ -2,15 +2,15 @@ namespace Services.CaptivePortalDataService;
 
 using System;
 using System.Collections.Generic;
-
 using System.Linq;
 using System.Reflection;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
 using Services.CaptivePortalEmailService;
-using Services.CaptivePortalProfileService;
 using Services.CaptivePortalProfileJobService;
+using Services.CaptivePortalProfileService;
 
 
 public class CaptivePortalDbContext : DbContext

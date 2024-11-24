@@ -1,10 +1,11 @@
 namespace Services.CaptivePortalProfileJobService;
 
+using System.Threading.Tasks.Dataflow;
+
 using Services.CaptivePortalDataService;
 using Services.CaptivePortalEmailService;
-using Services.CaptivePortalProfileService;
 using Services.CaptivePortalProfileJobService;
-using System.Threading.Tasks.Dataflow;
+using Services.CaptivePortalProfileService;
 
 public record GuestProfileJob
 {
