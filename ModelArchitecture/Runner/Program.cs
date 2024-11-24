@@ -4,18 +4,12 @@ using Services.CaptivePortalProfileJobService;
 
 
 // See https://aka.ms/new-console-template for more information
-// Console.WriteLine("Checking API");
-// string answer = await WeatherDotGovAPI.GetLastestObservationForStationAsync("KAMA");
-// Console.WriteLine($"answer is: {answer}");
-
 Console.WriteLine("Checking the Job Scheduler");
 
 
 GuestProfileJob? job = GuestProfileJobFactory.CreateGuestProfileJob(
-    1,                      // id   
-    DateTime.Now,           // date
     "user@example.com",     // email
-    true                    // isEmailValid
+    DateTime.Now            // date
 );
 
 Console.WriteLine($"Submitting job for {job}");

@@ -38,8 +38,8 @@ public class GuestProfileJobFactory
     {
         var guestjob = new GuestProfileJob
         {
-            Date = date,
             Email = email,
+            Date = date,
         };
         return guestjob;
     }

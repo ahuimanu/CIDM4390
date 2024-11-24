@@ -14,7 +14,7 @@ namespace App.Pages.Profile
     public class CreateProfileModel : PageModel
     {
 
-        public async Task<IActionResult> OnGetAsync()
+        public IActionResult OnGet()
         {
             return Page();
         }
@@ -27,7 +27,7 @@ namespace App.Pages.Profile
                 var email = Request.Form["email"];
 
                 Console.WriteLine($"{email}");
-                
+
                 //cast the int back to the enum
                 var Job = new GuestProfileJob()
                 {
@@ -50,8 +50,7 @@ namespace App.Pages.Profile
                     {
                         // Get the URI of the created resource.
                         Uri? returnUrl = response.Headers.Location;
-                        Console.WriteLine("BRUH");
-                        Console.WriteLine(returnUrl);
+                        Console.WriteLine("URI: " + returnUrl);
                     }
                 }
 

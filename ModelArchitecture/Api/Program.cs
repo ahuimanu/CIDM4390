@@ -31,7 +31,8 @@ app.UseHttpsRedirection();
 
 app.MapPost(
     "/profile/create/{email}",
-    async (string email) => {
+    async (string email) =>
+    {
         var job = GuestProfileJobFactory.CreateGuestProfileJob(email, DateTime.Now);
         var output = await GuestProfileJobScheduler.DoGuestProfileJobAsync(job!);
         return output;
@@ -40,10 +41,11 @@ app.MapPost(
 
 // GET /validate/{email}
 app.MapGet(
-    "/vadidate/{email}", 
-    (string email) => {
+    "/vadidate/{email}",
+    (string email) =>
+    {
         // call external service to validate email
-        CaptivePortalEmailValidatorService emailValidator = new CaptivePortalEmailValidatorService();     
+        CaptivePortalEmailValidatorService emailValidator = new CaptivePortalEmailValidatorService();
         return emailValidator.IsValidEmail(email);
     }
 );
